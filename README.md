@@ -7,8 +7,8 @@
 |  Day | Deliverable | 
 |---|---|
 |Day 0: Thu 5/24 | Wireframes, Priority Matrix, Schedule, Time Estimates |
-|Day 1: Thu 5/24 | Approval / Pseudocode / Actual code |
-|Day 2: Fri 5/25 | Proof of Concept - Sockets |
+|Day 1: Thu 5/24 | Approval / Proof of Concept - Sockets |
+|Day 2: Fri 5/25 | Rails: Users DB Setup / Pseudocode / Actual code  |
 |Day 3: Sat 5/26 | Work on project  |
 |Day 4: Sun 5/27 | Work on project  |
 |Day 5: Mon 5/28 | Work on project  |
