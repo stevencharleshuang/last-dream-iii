@@ -25,7 +25,7 @@ Last Dream III is a multiplayer, two-dimensional role playing game with a turn-b
 
 ## Wireframes
 
-[Wireframs - Notebook](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527131654/Wireframes_-_Notebook.jpg) 
+[Wireframes - Notebook](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527131654/Wireframes_-_Notebook.jpg) 
 
 ## Priority Matrix
 
