@@ -17,7 +17,7 @@
 |Day 9: Fri 6/1 | Styling / Graphical improvements / Debugging / Working Prototype with full commit to master |
 |Day 10: Sat 6/2 | MVP / Debugging / Deployment |
 |Day 11: Sun 6/3 | PMVP / Debugging / Final edits...branching first |
-|Day 12: Mon 6/4 | |
+|Day 12: Mon 6/4 | Presentation |
 
 ## Project Statement
 
@@ -135,10 +135,10 @@ Helper functions should be generic enought that they can be reused in other appl
 Use this section to include a brief code snippet of functionality that you are proud of an a brief description.  
 
 ## Change Log
+
  Use this section to document what changes were made and the reasoning behind those changes.  
 
 ## Issues and Resolutions
- Use this section to list of all major issues encountered and their resolution.
 
 #### SAMPLE.....
 **ERROR**: app.js:34 Uncaught SyntaxError: Unexpected identifier                                
