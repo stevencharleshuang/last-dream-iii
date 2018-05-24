@@ -121,7 +121,7 @@ Helper functions should be generic enought that they can be reused in other appl
 
 ##	Tech Specs
 	
-*	Ruby On Rais
+*	Ruby On Rails
 *	React Native
 *	JSON Web Tokens
 *	JQuery
