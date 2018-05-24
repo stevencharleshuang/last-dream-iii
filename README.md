@@ -21,7 +21,7 @@
 
 ## Project Statement
 
-Last Dream III is a multiplayer, two-dimensional role playing game with a turn-based battle system for players who are nostalgic for the feel of older RPGs but also want the comradery of playing against other players. 
+Last Dream III is a multiplayer, two-dimensional role playing game with a turn-based battle system for players who are nostalgic for the feel of older RPGs but also want the camaraderie of playing against other players. 
 
 ## Wireframes
 
