@@ -32,7 +32,7 @@ Last Dream III is a multiplayer, two-dimensional role playing game with a turn-b
 [Priority Matrix](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527133661/p4_-_Priority_Matrix.png) 
 
 ## ERD
-[ERD - Whiteboard](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527131654/ERD_-_Whiteboard.jpg)
+[ERD - Whiteboard](http://res.cloudinary.com/dk1cgfxkn/image/upload/c_scale,w_1531/a_90/v1527131654/ERD_-_Whiteboard.jpg)
 
 ## User Stories
 
