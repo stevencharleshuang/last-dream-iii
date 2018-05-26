@@ -6,8 +6,9 @@
 
 |  Day | Deliverable | 
 |---|---|
-|Day 1: Thu 5/24 | Wireframes, Priority Matrix, Schedule, Time Estimates |
-|Day 2: Fri 5/25 | Approval\Pseudocode\Actual code\|
+|Day 0: Thu 5/24 | Wireframes, Priority Matrix, Schedule, Time Estimates |
+|Day 1: Thu 5/24 | Approval / Proof of Concept - Sockets |
+|Day 2: Fri 5/25 | Rails: Users DB Setup / Pseudocode / Actual code  |
 |Day 3: Sat 5/26 | Work on project  |
 |Day 4: Sun 5/27 | Work on project  |
 |Day 5: Mon 5/28 | Work on project  |
@@ -17,22 +18,22 @@
 |Day 9: Fri 6/1 | Styling / Graphical improvements / Debugging / Working Prototype with full commit to master |
 |Day 10: Sat 6/2 | MVP / Debugging / Deployment |
 |Day 11: Sun 6/3 | PMVP / Debugging / Final edits...branching first |
-|Day 12: Mon 6/4 | |
+|Day 12: Mon 6/4 | Presentation |
 
 ## Project Statement
 
-Last Dream III is a multiplayer, two-dimensional role playing game with a turn-based battle system for players who are nostalgic for the feel of older RPGs but also want the comradery of playing against other players. 
+Last Dream III is a multiplayer, two-dimensional role playing game with a turn-based battle system for players who are nostalgic for the feel of older RPGs but also want the camaraderie of playing against other players. 
 
 ## Wireframes
 
-[Wireframs - Notebook](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527131654/Wireframes_-_Notebook.jpg) 
+[Wireframes - Notebook](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527131654/Wireframes_-_Notebook.jpg) 
 
 ## Priority Matrix
 
 [Priority Matrix](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527133661/p4_-_Priority_Matrix.png) 
 
 ## ERD
-[ERD - Whiteboard](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527131654/ERD_-_Whiteboard.jpg)
+[ERD - Whiteboard](http://res.cloudinary.com/dk1cgfxkn/image/upload/c_scale,w_1531/a_90/v1527131654/ERD_-_Whiteboard.jpg)
 
 ## User Stories
 
@@ -123,7 +124,7 @@ Helper functions should be generic enought that they can be reused in other appl
 
 ##	Tech Specs
 	
-*	Ruby On Rais
+*	Ruby On Rails
 *	React Native
 *	JSON Web Tokens
 *	JQuery
@@ -137,10 +138,10 @@ Helper functions should be generic enought that they can be reused in other appl
 Use this section to include a brief code snippet of functionality that you are proud of an a brief description.  
 
 ## Change Log
+
  Use this section to document what changes were made and the reasoning behind those changes.  
 
 ## Issues and Resolutions
- Use this section to list of all major issues encountered and their resolution.
 
 #### SAMPLE.....
 **ERROR**: app.js:34 Uncaught SyntaxError: Unexpected identifier                                
