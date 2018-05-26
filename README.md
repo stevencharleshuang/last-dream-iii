@@ -50,6 +50,7 @@ Last Dream III is a multiplayer, two-dimensional role playing game with a turn-b
 
 ##	PMVP
 	
+*   In-Game Chat
 *	Soundtrack
 *	Overall CSS and Styling
 *	NPC's for Single Player Progression (Pseudo AI, Gain XP and Gold)
@@ -64,53 +65,54 @@ Last Dream III is a multiplayer, two-dimensional role playing game with a turn-b
 ##	Functional Components									
 										
 										
-|	Component	|	Priority	|	Estimated Time (hrs)	|	Time Invested (hrs)	|	Actual Time (hrs)	|
-|	---	|	:---:	|	:---:	|	:---:	|	:---:	|
-|	Repo / Filetree Setup	|	H	|	0.5	|		|		|
-|	Users DB: Rails Setup	|	H	|	1	|		|		|
-|	React Native Setup	|	H	|	0.75	|		|		|
-|	User Authentication With Tokens - Research	|	M	|	1.5	|		|		|
-|	User Authentication With Tokens	|	M	|	1.5	|		|		|
-|	Users DB: Render Views (Check Forms and Functionality)	|	H	|	1	|		|		|
-|	News Page: Content and View	|	L	|	0.5	|		|		|
-|	About Page: Content and View	|	L	|	0.5	|		|		|
-|	Nav Bar: Functionality and View	|	M	|	0.75	|		|		|
-|	User Profile: User CRUD Functionality	|	M	|	0.75	|		|		|
-|	User Profile: User CRUD Views	|	M	|	0.5	|		|		|
-|	User Profile: User Progress - 1st Party API Read Functionality	|	M	|	0.5	|		|		|
-|	User Profile: User Progress - 1st Party API View	|	M	|	0.5	|		|		|
-|	User Avatar: CRUD Functionality - Node-Express	|	M	|	1	|		|		|
-|	User Avatar: Customization Via State Functionality	|	M	|	1	|		|		|
-|	Game: HTML 5 Canvas Research	|	H	|	2	|		|		|
-|	Game: World View - Initial Design	|	H	|	1	|		|		|
-|	Game: World View - One Player Functionality (Control / Response)	|	H	|	1.5	|		|		|
-|	Game: World View - Multiplayer Functionality (Research Sockets)	|	H	|	1.5	|		|		|
-|	Game: World View - Multiplayer Functionality (Implement Sockets)	|	H	|	1.5	|		|		|
-|	Game: World View - Multiplayer Functionality (Control / Response)	|	H	|	1.5	|		|		|
-|	Game: World View - Collision Detection to Trigger Battle Functionality	|	H	|	1.5	|		|		|
-|	Game: Battle View - Initial Design	|	H	|	1.25	|		|		|
-|	Game: Battle View - One Player Functionality (Control / Response)	|	H	|	1.5	|		|		|
-|	Game: Battle View - Multiplayer Functionality (Control / Response)	|	H	|	1.5	|		|		|
-|	Game: Battle View - Multiplayer Functionality (Research Sockets)	|	H	|	1.5	|		|		|
-|	Game: Battle View - Multiplayer Functionality (Implement Sockets)	|	H	|	1.5	|		|		|
-|	User Traits: Level System (XP)	|	H	|	1.25	|		|		|
-|	User Traits: Resources (Gold)	|	M	|	1.25	|		|		|
-|	Avatar Traits: (Armor, Weapons)	|	M	|	1.5	|		|		|
-|	PMVP: Soundtrack	|	L	|	2	|		|		|
-|	PMVP: Overall CSS and Styling	|	L	|	2	|		|		|
-|	PMVP: Incorporate NPC's for Single Player Progression (Gain XP, Gold)	|	M	|	2	|		|		|
-|	PMVP: Incorporate NPC's for Single Player Progression (Pseudo AI)	|	M	|	2	|		|		|
-|	PMVP: Quests for Single Player	|	M	|	2	|		|		|
-|	PMVP: Weapons and Armor Purchasing System: Add A Store	|	H	|	1.5	|		|		|
-|	PMVP: Weapons and Armor Purchasing System: Add A Table For User Customization	|	H	|	1	|		|		|
-|	PMVP: Expand Weapons and Armor	|	H	|	1	|		|		|
-|	PMVP: Weapons and Armor Design	|	M	|	1.5	|		|		|
-|	PMVP: Enhance Design and Graphics on World View	|	L	|	2	|		|		|
-|	PMVP: Enhance Design and Graphics on Battle View	|	L	|	2	|		|		|
-|	PMVP: Add Animations to Avatars In Battle View	|	L	|	2	|		|		|
-|	PMVP: Users Have Teams of Avatars	|	L	|	2	|		|		|
-|	PMVP: Game Battle View - Active Time Battle System	|	M	|	2	|		|		|
-|	Sum Hours	|		|	59	|		|		|
+|   Component   |   Priority    |   Estimated Time (hrs)    |   Time Invested (hrs) |   Actual Time (hrs)   |
+|   --- |   :---:   |   :---:   |   :---:   |   :---:   |
+|   Repo / Filetree Setup   |   H   |   0.5 |       |       |
+|   Users DB: Rails Setup   |   H   |   1   |       |       |
+|   React Native Setup  |   H   |   0.75    |       |       |
+|   User Authentication With Tokens - Research  |   M   |   1.5 |       |       |
+|   User Authentication With Tokens |   M   |   1.5 |       |       |
+|   Users DB: Render Views (Check Forms and Functionality)  |   H   |   1   |       |       |
+|   News Page: Content and View |   L   |   0.5 |       |       |
+|   About Page: Content and View    |   L   |   0.5 |       |       |
+|   Nav Bar: Functionality and View |   M   |   0.75    |       |       |
+|   User Profile: User CRUD Functionality   |   M   |   0.75    |       |       |
+|   User Profile: User CRUD Views   |   M   |   0.5 |       |       |
+|   User Profile: User Progress - 1st Party API Read Functionality  |   M   |   0.5 |       |       |
+|   User Profile: User Progress - 1st Party API View    |   M   |   0.5 |       |       |
+|   User Avatar: CRUD Functionality - Node-Express  |   M   |   1   |       |       |
+|   User Avatar: Customization Via State Functionality  |   M   |   1   |       |       |
+|   Game: HTML 5 Canvas Research    |   H   |   2   |       |       |
+|   Game: World View - Initial Design   |   H   |   1   |       |       |
+|   Game: World View - One Player Functionality (Control / Response)    |   H   |   1.5 |       |       |
+|   Game: World View - Multiplayer Functionality (Research Sockets) |   H   |   1.5 |       |       |
+|   Game: World View - Multiplayer Functionality (Implement Sockets)    |   H   |   1.5 |       |       |
+|   Game: World View - Multiplayer Functionality (Control / Response)   |   H   |   1.5 |       |       |
+|   Game: World View - Collision Detection to Trigger Battle Functionality  |   H   |   1.5 |       |       |
+|   Game: Battle View - Initial Design  |   H   |   1.25    |       |       |
+|   Game: Battle View - One Player Functionality (Control / Response)   |   H   |   1.5 |       |       |
+|   Game: Battle View - Multiplayer Functionality (Control / Response)  |   H   |   1.5 |       |       |
+|   Game: Battle View - Multiplayer Functionality (Research Sockets)    |   H   |   1.5 |       |       |
+|   Game: Battle View - Multiplayer Functionality (Implement Sockets)   |   H   |   1.5 |       |       |
+|   User Traits: Level System (XP)  |   H   |   1.25    |       |       |
+|   User Traits: Resources (Gold)   |   M   |   1.25    |       |       |
+|   Avatar Traits: (Armor, Weapons) |   M   |   1.5 |       |       |
+|   PMVP: Soundtrack    |   L   |   2   |       |       |
+|   PMVP: Overall CSS and Styling   |   L   |   2   |       |       |
+|   PMVP: Incorporate NPC's for Single Player Progression (Gain XP, Gold)   |   M   |   2   |       |       |
+|   PMVP: Incorporate NPC's for Single Player Progression (Pseudo AI)   |   M   |   2   |       |       |
+|   PMVP: Quests for Single Player  |   M   |   2   |       |       |
+|   PMVP: Weapons and Armor Purchasing System: Add A Store  |   H   |   1.5 |       |       |
+|   PMVP: Weapons and Armor Purchasing System: Add A Table For User Customization   |   H   |   1   |       |       |
+|   PMVP: Expand Weapons and Armor  |   H   |   1   |       |       |
+|   PMVP: Weapons and Armor Design  |   M   |   1.5 |       |       |
+|   PMVP: Enhance Design and Graphics on World View |   L   |   2   |       |       |
+|   PMVP: Enhance Design and Graphics on Battle View    |   L   |   2   |       |       |
+|   PMVP: Add Animations to Avatars In Battle View  |   L   |   2   |       |       |
+|   PMVP: Users Have Teams of Avatars   |   L   |   2   |       |       |
+|   PMVP: Game Battle View - Active Time Battle System  |   M   |   2   |       |       |
+|   PMVP: In-Game Chat  |   M   |   1   |       |       |
+|   Sum Hours   |       |   60  |       |       |
 
 ## Helper Functions
 Helper functions should be generic enought that they can be reused in other applications. Use this section to document all helper functions that fall into this category.
