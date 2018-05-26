@@ -128,7 +128,7 @@ Helper functions should be generic enought that they can be reused in other appl
 *	React Native
 *	JSON Web Tokens
 *	JQuery
-*	Socket.io
+*	WS WebSocket
 *	Node
 *	Express
 *	Bcrypt 
