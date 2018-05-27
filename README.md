@@ -94,6 +94,10 @@ As a user, when my or my opponent's avatar has lost all health points, we will e
 *   Ruby On Rails Active For User DB
 *   Express Operating On Backend
 
+## Clickable Model
+
+
+
 ##	MVP
 	
 *	User Database - Full CRUD
