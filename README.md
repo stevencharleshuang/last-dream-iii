@@ -35,7 +35,63 @@ Last Dream III is a multiplayer, two-dimensional role playing game with a turn-b
 ## ERD
 [ERD - Whiteboard](http://res.cloudinary.com/dk1cgfxkn/image/upload/c_scale,w_1531/a_90/v1527131654/ERD_-_Whiteboard.jpg)
 
-## User Stories
+##  User Stories
+    
+####    Landing Page
+    
+    As a user, I want to log in or register to play the game.
+    
+####    Navbar
+    
+    As a user, I want a navbar to persist across all pages with links to game news, information about the game, login, and a link to play the game.
+    
+####    News Page
+    
+    As a user, I want to see posts that inform users of latest game news and updates.
+    
+####    About Page
+    
+    As a user, I want to read about the game's backstory and instructions.
+    
+####    Login Page
+    
+    As a user, I want to log into my account, and be taken to my personal profile.
+    
+####    Register Page
+    
+    As a user, I want to register for a new account, and be taken to the login page.
+    
+####    User Profile
+    
+    As a user, I want to see my user details, game progress, my current avatars and an option to create a new avatar.
+    
+####    Create / Edit Avatar View
+    
+    As a user, I want to see, create, edit, or delete an avatar for the game.
+    
+####    Game: "World Map" View
+    
+    As a user I want to see my avatar "minified" with other users' avatars "minified". When my avatar and another user's avatar collide, we will be taken to the "Battle" view.
+    
+####    Game: "Battle" View
+    
+    As a user, I want to see my avatar dueling against another user's avatar using the in-game battle system
+    
+####    Game: Battle System
+    
+    As a user, I want to be able to take turns selecting attacks or defenses against my opponent until one of our avatars loses all remaining health points.
+    
+####    Game: "Victory / Defeat" View
+    
+    As a user, when my or my opponent's avatar has lost all health points, we will each be taken to a "victory" or "defeat" view depending on whether we won or lost. We will then be redirected to the "World Map" view.
+
+##  Proof of Concept
+    
+*   HTML Canvas Has Moving Divs
+*   Player Div Motions Broadcasted Via Sockets
+*   React Incorporated As Frontend
+*   Ruby On Rails Active For User DB
+*   Express Operating On Backend
 
 ##	MVP
 	
