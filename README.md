@@ -35,6 +35,9 @@ Last Dream III is a multiplayer, two-dimensional role playing game with a turn-b
 
 [ERD - Digital](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527173050/p4_ERD.png)
 
+## React Component Chart
+[React Component Chart](https://res.cloudinary.com/dk1cgfxkn/image/upload/v1527571467/React-Comp-Chart.png)
+
 ##  User Stories
     
 ####    Landing Page
