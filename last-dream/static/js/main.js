@@ -40,16 +40,17 @@ $( document ).ready(function() {
   //   console.log('player.pos:', player.x)
   // }
 
-  websocket.onmessage = function(evt) {
-    $('#messages').append($('<li>').html(evt.data));
-    console.log('main.js websocket.onmessage evt.data: ', evt.data)
+  websocket.onmessage = function(e) {
+    $('#messages').append($('<li>').html(e.data));
+    console.log('main.js websocket.onmessage: event triggered');
+    console.log('main.js websocket.onmessage evt.data: ', e.data);
   };
 
 
 
-  websocket.onerror = function(evt) {
+  websocket.onerror = function(e) {
       $('#messages').append($('<li>')
-        .text('<span style="color: red;">ERROR:</span> ' + evt.data));
+        .text('<span style="color: red;">ERROR:</span> ' + e.data));
   };
 
   /* WS Integration End */
