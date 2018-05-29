@@ -33,16 +33,15 @@ $( document ).ready(function() {
       console.log('main.js: This is websocket: ', websocket)
       return false;
   });
-  websocket.send = () => {
-    setInterval(() => {
-      return (player.x, player.y);
-    }, 250)
-    console.log('player.pos:', player.x)
-  }
+  // websocket.send = () => {
+  //   setInterval(() => {
+  //     return (player.x, player.y);
+  //   }, 250)
+  //   console.log('player.pos:', player.x)
+  // }
 
   websocket.onmessage = function(evt) {
     $('#messages').append($('<li>').html(evt.data));
-    $('#game').draw(evt.data);
     console.log('main.js websocket.onmessage evt.data: ', evt.data)
   };
 
