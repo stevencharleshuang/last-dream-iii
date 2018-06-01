@@ -3,14 +3,23 @@ import { Link } from 'react-router-dom';
 
 export default function Nav() {
   return (
-    <div className="Header">
-      <h1>React Router Testing</h1>
-        <span>
-          <ul>
+    <nav className="navbar has-background-dark" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand">
+        <a href="#" className="navbar-item">
+          <span className="icon is-large"></span>
+          <span className="is-size-3"><strong>Last Dream III</strong></span>
+        </a>
+        <br />
+        <ul>
             <li className='NavBar'><Link to="/">Home</Link></li>
             <li className='NavBar'><Link to="/game" id="game-link">Game</Link></li>
-          </ul>
-        </span>
-    </div>
+        </ul>
+        <button className="button navbar-burger">
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+    </nav>
   );
 }
