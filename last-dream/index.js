@@ -28,17 +28,17 @@ let players = [];
 wss.on('connection', (ws, req) => {
   console.log('serverside connection established')
   const id = req.headers['sec-websocket-key'];
-  const playerInitTop = Math.floor(Math.random() * 600),
-        playerInitLeft = Math.floor(Math.random() * 800);
-  players.push({id: id, top: playerInitTop, left: playerInitLeft});
+  const playerInitX = Math.floor(Math.random() * 400),
+        playerInitY = Math.floor(Math.random() * 600);
+  players.push({id: id, x: playerInitX, y: playerInitY});
   ws.on('message', (msg) => {
     console.log(`
       >>>>>>>>>>> Server Received:
       Client Message: ${msg}
       >>>>>>>>>>> Server Assigned:
       Client: ${players[0].id}
-      Player Top: ${players[0].top}
-      Player Left: ${players[0].left}
+      Player x: ${players[0].x}
+      Player y: ${players[0].y}
     `);
     data = JSON.parse(msg);
     if (data.message) {wss.broadcast('<strong>' + data.name + '</strong>: ' + data.message);}
