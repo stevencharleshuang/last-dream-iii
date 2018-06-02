@@ -1,4 +1,6 @@
 const express         = require('express'),
+      $               = require('jquery'),
+      Crafty          = require('craftyjs'),
       app             = express(),
       logger          = require('morgan'),
       http            = require('http').Server(app),
@@ -8,6 +10,20 @@ const express         = require('express'),
       wss             = new WebSocketServer({
                           port: 8080
                         });
+
+
+  // Network interfaces
+  var ifaces = require('os').networkInterfaces();
+
+  // Iterate over interfaces ...
+  var adresses = Object.keys(ifaces).reduce(function (result, dev) {
+    return result.concat(ifaces[dev].reduce(function (result, details) {
+      return result.concat(details.family === 'IPv4' && !details.internal ? [details.address] : []);
+    }, []));
+  });
+
+  // Print the result
+  console.log('IP:', adresses)
 
 
 app.use(logger('dev'));
@@ -41,14 +57,19 @@ wss.on('connection', (ws, req) => {
       Player y: ${players[0].y}
     `);
     data = JSON.parse(msg);
-    if (data.message) {wss.broadcast('<strong>' + data.name + '</strong>: ' + data.message);}
-    // ws.send('Server response: Sup, bo?')
+    if (data.message) {
+      wss.broadcast(`
+        <strong>${data.name}</strong>:${data.message} Player X: ${data.player_x} Player Y: ${data.player_y}
+      `);
+
+    ws.send(JSON.stringify(data))
+    }
   });
   wss.broadcast = function broadcast(data) {
     console.log('>>> server: wss emit', data);
     wss.clients.forEach(function each(client) {
       client.send(data);
-      console.log('>>> Data Broadcast: ', data);
+      console.log('>>> server: Data Broadcast: ', data);
     });
   };
 });
