@@ -11,21 +11,6 @@ const express         = require('express'),
                           port: 8080
                         });
 
-
-  // Network interfaces
-  var ifaces = require('os').networkInterfaces();
-
-  // Iterate over interfaces ...
-  var adresses = Object.keys(ifaces).reduce(function (result, dev) {
-    return result.concat(ifaces[dev].reduce(function (result, details) {
-      return result.concat(details.family === 'IPv4' && !details.internal ? [details.address] : []);
-    }, []));
-  });
-
-  // Print the result
-  console.log('IP:', adresses)
-
-
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'static')));
 
@@ -42,40 +27,55 @@ app.use((err, req, res, next) => {
 
 let players = [];
 wss.on('connection', (ws, req) => {
-  console.log('serverside connection established')
   const id = req.headers['sec-websocket-key'];
-  const playerInitX = Math.floor(Math.random() * 400),
-        playerInitY = Math.floor(Math.random() * 600);
+  const playerInitX = Math.floor(Math.random() * 600),
+        playerInitY = Math.floor(Math.random() * 400);
   players.push({id: id, x: playerInitX, y: playerInitY});
-  ws.on('message', (msg) => {
-    console.log(`
-      >>>>>>>>>>> Server Received:
-      Client Message: ${msg}
-      >>>>>>>>>>> Server Assigned:
-      Client: ${players[0].id}
-      Player x: ${players[0].x}
-      Player y: ${players[0].y}
-    `);
-    data = JSON.parse(msg);
-    if (data.message) {
-      wss.broadcast(`
-        <strong>${data.name}</strong>:${data.message} Player X: ${data.player_x} Player Y: ${data.player_y}
-      `);
+  console.log('>>> Server: New client connected id:', players[0].id)
+  console.log('Connected players: ', players)
+  ws.send(JSON.stringify(players[0]))
+  // ws.on('message', (msg) => {
+  //   console.log(`
+  //     >>>>>>>>>>> Server Received:
+  //     Client Message: ${msg}
+  //     >>>>>>>>>>> Server Assigned:
+  //     Client: ${players[0].id}
+  //     Player x: ${players[0].x}
+  //     Player y: ${players[0].y}
+  //   `);
+  //   data = JSON.parse(msg);
+  //   if (data.message) {
+  //     wss.broadcast(`
+  //       <strong>${data.name}</strong>:${data.message} Player X: ${data.player_x} Player Y: ${data.player_y}
+  //     `);
 
+  //   ws.send(JSON.stringify(data))
+    // }
+  // });
+  // wss.broadcast = function broadcast(data) {
+  //   console.log('>>> server: wss emit', data);
+  //   wss.clients.forEach(function each(client) {
+  //     client.send(data);
+  //     console.log('>>> server: Data Broadcast: ', data);
+  //   });
+  // };
+  ws.on('message', (msg) => {
+    let data = JSON.parse(msg);
+    console.log('>>> Server: Received msg from client: ', msg)
     ws.send(JSON.stringify(data))
-    }
-  });
-  wss.broadcast = function broadcast(data) {
-    console.log('>>> server: wss emit', data);
-    wss.clients.forEach(function each(client) {
-      client.send(data);
-      console.log('>>> server: Data Broadcast: ', data);
-    });
-  };
+    // wss.broadcast = function broadcast(data) {
+    //   wss.players.forEach(function each(client) {
+    //     if (client.readyState === WebSocket.OPEN) {
+    //       client.send('hi');
+    //     }
+    //   });
+    // };
+  })
 });
+
 /* Add WS End */
 
 app.listen(PORT, () => {
-  console.log(`Server up and running! Port: ${PORT} Env: ${app.get('env')}`);
+  console.log(`>>> Server up and running! Port: ${PORT} Env: ${app.get('env')}`);
 });
 
