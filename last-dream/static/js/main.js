@@ -4,7 +4,7 @@ $( document ).ready(function() {
   /* WS Integration Beg */
 
   // Socket Connection Init
-  websocket = new WebSocket("ws://192.168.30.144:8080/");
+  websocket = new WebSocket("ws://localhost:8080/");
 
   // Crafty Init Game Board
   Crafty.init(888,500, document.getElementById('game'));
@@ -31,16 +31,18 @@ $( document ).ready(function() {
   // });
   let playerID
   websocket.onmessage = function(evt) {
-    console.log('>>>>>>>>>>>> client ln 34 websocket: ', websocket);
-    let dataArr = JSON.parse(evt.data)
-    dataArr.forEach(data => {
-      console.log('<<< Client: Received msg from server: ', data)
+    // console.log('>>>>>>>>>>>> client ln 34 evt.data.player: ', evt.data.player);
+    let resp = JSON.parse(evt.data);
+    let players = resp.players;
+    console.log('>>>>>>>>>>>> client ln 34 websocket: ', resp);
+    players.forEach(data => {
+    console.log('<<< Client: Received msg from server: ', data)
     player
-    .attr({x:data.x, y:data.y, w:25, h:25})
-    .color("red")
+      .attr({x:data.x, y:data.y, w:25, h:25})
+      .color("red")
     playerID = data.id;
-  
-    })
+
+  })
     
     // player
     // .attr({x:data.x, y:data.y, w:25, h:25})
@@ -57,11 +59,11 @@ $( document ).ready(function() {
       // .html(`player x: ${player._x}, player y: ${player._y}`));
     
     console.log('main.js ws.onmessage: event triggered');
-    console.log('main.js ws.onmessage: evt.data: ', evt.data);
+    console.log('main.js ws.onmessage: evt: ', evt);
   };
 
   player.bind('KeyDown', function(e) {
-    let playerPos = {id: playerID, x: player._x, y: player._y}
+    let playerPos = {gameState:'gameState', id: playerID, x: player._x, y: player._y}
     console.log('playerPos: ', playerPos)
     // console.log('playerID:', playerID)
     if (e.key == Crafty.keys.W) { // W = Up

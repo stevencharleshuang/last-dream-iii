@@ -36,8 +36,9 @@ app.use((err, req, res, next) => {
 //   console.log("handshake response cookie", headers["set-cookie"]);
 // });
 
-let gameState = {}
+let gameState = {};
 let players = [];
+let clients = [];
 
 // On New Client Connection
 wss.on('connection', (ws, req) => {
@@ -45,20 +46,26 @@ wss.on('connection', (ws, req) => {
   const playerInitX = Math.floor(Math.random() * 600),
         playerInitY = Math.floor(Math.random() * 400);
   players.push({id: id, x: playerInitX, y: playerInitY});
-  console.log('>>> Server: New client connected id:', players[0].id)
+  clients.push(ws);
+  
   console.log('Connected players: ', players)
-  ws.send(JSON.stringify(players))
+  ws.send(JSON.stringify({gameState:'gameState', id: id, players:players}));
   ws.on('message', function(message) {
-    
     let parsedMessage = JSON.parse(message)
-    console.log('>>>>>>>>> ln 52 message', parsedMessage)
+    console.log('>>> Server: New client connected id:', id)
+    console.log('>>>>>>>>> ln 52 message', message)
     switch(Object.keys(parsedMessage)[0]) {
       case 'gameState':
         gameState = parsedMessage[Object.keys(parsedMessage)[0]]
-        players.forEach((player) => {
-          player.send({
+        clients.forEach((client) => {
+          client.send(JSON.stringify({
             gameState: gameState,
-          })
+            id: id,
+            players: players,
+          }));
+          // client.send({
+          //   gameState: gameState,
+          // })
         })
     }
   })
@@ -77,7 +84,7 @@ wss.on('connection', (ws, req) => {
   //   let data = JSON.parse(msg);
   //     // players.forEach(function (player) {
   //       console.log(`>>> Server: Received msg from client ${player.id} : ${msg}`)
-  //       // ws.send(JSON.stringify(data))
+  //       ws.send(JSON.stringify(data))
 
   //     // });
   // })
