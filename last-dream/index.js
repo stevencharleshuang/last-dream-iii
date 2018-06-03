@@ -33,7 +33,6 @@ let players = [];
 
 // On New Client Connection
 wss.on('connection', (ws, req) => {
-  console.log('ws is:', req);
   const id = req.headers['sec-websocket-key'];
   const playerInitX = Math.floor(Math.random() * 600),
         playerInitY = Math.floor(Math.random() * 400);
@@ -43,21 +42,23 @@ wss.on('connection', (ws, req) => {
   // console.log('url: ', url);
   ws.send(JSON.stringify(players[0]))
 // wss.on('connection', function connection(ws) {
+/* Where we left off */
+  // console.log('ws is:', req);
     // var location = url.parse(ws.upgradeReq.url, true);
     //get sessionID
-    var cookies = cookie.parse(req.upgradeReq.headers.cookie);
-    var sid = cookieParser.signedCookie(cookies["connect.sid"], secret);
-    //get the session object
-    store.get(sid, function (err, ss) {
-        //create the session object and append on upgradeReq
-        store.createSession(ws.upgradeReq, ss)
-        //setup websocket bindings
-        ws.on('message', function incoming(message) {
-            console.log('received: %s', message);
-            //..........
-        });
+    // var cookies = cookie.parse(req.upgradeReq.headers.cookie);
+    // var sid = cookieParser.signedCookie(cookies["connect.sid"], secret);
+    // //get the session object
+    // store.get(sid, function (err, ss) {
+    //     //create the session object and append on upgradeReq
+    //     store.createSession(ws.upgradeReq, ss)
+    //     //setup websocket bindings
+    //     ws.on('message', function incoming(message) {
+    //         console.log('received: %s', message);
+    //         //..........
+    //     });
 
-    });
+    // });
 });
 
 // });

@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-  console.log( "jQuery ready!" );
+  console.log('main.js: jQuery ready!');
 
   /* WS Integration Beg */
 
@@ -99,5 +99,14 @@ $( document ).ready(function() {
   }
   /* Crafty End */
 
+  // JQuery Funcs
+  $('#fight-btn').on('click', () => {
+    console.log('hi')
+    Crafty.enterScene("battle_screen");
+  })
+
+
+
+// Closes jQuery ready
 });
 
