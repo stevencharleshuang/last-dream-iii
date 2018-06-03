@@ -7,7 +7,10 @@ $( document ).ready(function() {
   websocket = new WebSocket("ws://192.168.30.144:8080/");
 
   // Crafty Init Game Board
-  Crafty.init(600,400, document.getElementById('game'));
+  Crafty.init(888,500, document.getElementById('game'));
+
+
+  // Crafty.defineScene("world_screen", function() {
   let player = Crafty.e("2D, DOM, Color, Motion")
   websocket.onopen = function(evt) {
     console.log('<<< Client: Wraith awaiting launch orders')
@@ -97,16 +100,24 @@ $( document ).ready(function() {
     console.log(`main.js onKeyDown: You did a thing.
       player x: ${player._x}, player y: ${player._y}`);
   }
+
   /* Crafty End */
 
+
+  // Closes World Game Screen func
+  // });
+  // Crafty.enterScene('world_screen');
   // JQuery Funcs
   $('#fight-btn').on('click', () => {
-    console.log('hi')
-    Crafty.enterScene("battle_screen");
+    console.log('Loading Battle Screen');
+    $('#fight-btn').replaceWith('<button id="world-btn">World View Test Btn</button>')
+    Crafty.enterScene('battle_screen');
   })
-
-
-
+  // $('#world-btn').on('click', () => {
+  //   console.log('Loading World Screen');
+  //   $('#world-btn').replaceWith('<button id="fight-btn">Fight Screen Test Btn</button>')
+  //   Crafty.enterScene('world_screen');
+  // })
 // Closes jQuery ready
 });
 
