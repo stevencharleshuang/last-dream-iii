@@ -136,25 +136,23 @@ $( document ).ready(function() {
     let currentChoice = undefined;
     let actionChosen = undefined;
 
+    let i = 0;
     pointer.bind('KeyDown', function(e) {
       console.log('Pointer heard indecision')
-      let i = 0;
-      while (actionChosen === undefined) {
-        if (e.key === Crafty.keys.W && this.y > 355 && i >= 0) {
+        if (e.key === Crafty.keys.W && this.y > 355) {
           this.y = this.y - 40;
           currentChoice = actionChoices[i - 1];
           i -= 1;
-        } else if (e.key === Crafty.keys.S && this.y < 430 && i < actionChoices.lenth) {
+          console.log('player moved up')
+        } else if (e.key === Crafty.keys.S && this.y < 430) {
           this.y = this.y + 40;
           currentChoice = actionChoices[i + 1];
           i += 1;
-          console.log('Current action choice: ', actionChoice);
+          console.log('Current action choice: ', currentChoice);
         } else if (e.key === Crafty.keys.ENTER || e.key === Crafty.keys.SPACE) {
           actionChosen = currentChoice;
-          console.log('Pointer heard a decision')
-          break;
+          console.log('Pointer heard a decision', )
         }
-      }
     });
 
   // Closes Battle Screen

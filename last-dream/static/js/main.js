@@ -31,12 +31,17 @@ $( document ).ready(function() {
   // });
   let playerID
   websocket.onmessage = function(evt) {
-    let data = JSON.parse(evt.data)
-    console.log('<<< Client: Received msg from server: ', data)
+    console.log('>>>>>>>>>>>> client ln 34 websocket: ', websocket);
+    let dataArr = JSON.parse(evt.data)
+    dataArr.forEach(data => {
+      console.log('<<< Client: Received msg from server: ', data)
     player
     .attr({x:data.x, y:data.y, w:25, h:25})
     .color("red")
     playerID = data.id;
+  
+    })
+    
     // player
     // .attr({x:data.x, y:data.y, w:25, h:25})
     // .color("red")
@@ -50,6 +55,7 @@ $( document ).ready(function() {
     //   .append($('<li>'))
     //   .html(evt)
       // .html(`player x: ${player._x}, player y: ${player._y}`));
+    
     console.log('main.js ws.onmessage: event triggered');
     console.log('main.js ws.onmessage: evt.data: ', evt.data);
   };
