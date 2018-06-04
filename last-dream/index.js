@@ -56,11 +56,13 @@ wss.on('connection', (ws, req) => {
   // console.log('Clients collection: ', clients);
   console.log('Connected players: ', players);
   // clients.forEach((player) => {
+  for (let id in players) {
     ws.send(JSON.stringify({
       gameState:'gameState',
       id: id,
       players: players,
     }));
+  }
   // });
 
   /* On Message from client
@@ -76,23 +78,23 @@ wss.on('connection', (ws, req) => {
     let parsedMessage = JSON.parse(message)
     console.log('>>> Server: New client connected id:', id)
     console.log('>>>>>>>>> ln 52 message', message)
-    if (players[id].x !== 0) {
-      players[id].x += parsedMessage.x
+    if (players[id].x >= 0) {
+      players[id].x += parsedMessage.x;
     }
-    if (players[id].y !== 0) {
+    if (players[id].y >= 0) {
       players[id].y += parsedMessage.y;
     }
     switch(Object.keys(parsedMessage)[0]) {
       case 'gameState':
         console.log('parsedMessage: ', parsedMessage)
         gameState = parsedMessage[Object.keys(parsedMessage)[0]]
-        // players.forEach((player) => {
+        for (let id in players) {
           ws.send(JSON.stringify({
             gameState: gameState,
             id: id,
             players: players,
           }));
-        // })
+        }
         break;
       case 'movement':
         console.log('>>>>> server: detected movement')
