@@ -6,11 +6,9 @@ export default function Home() {
     <section className="hero has-background-info body-content">
       <div className="hero-body">
         <div className="container">
-          <h2 className="title">
-          </h2>
-            <img src={splash} />
+          <img id="splash" src={splash} />
           <p className="subtitle has-text-white">
-            "Life... dreams... hope... Where do they come from? And where do they go...?"
+            <span id="subtitle">"Life... dreams... hope... Where do they come from? And where do they go...?"</span>
           </p>
         </div>
       </div>

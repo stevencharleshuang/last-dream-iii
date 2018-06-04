@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Nav() {
+export default function Game() {
   return (
     <div id="game-load">
     </div>
