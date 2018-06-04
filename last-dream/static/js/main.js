@@ -3,7 +3,23 @@ $( document ).ready(function() {
 
   // Crafty Init Game Board
   Crafty.init(888,500, document.getElementById('game'));
-
+  Crafty.sprite('../images/splash.png', { background:[ 0, 0, 888, 500 ] });
+    const bg = Crafty.e('2D, DOM, background')
+    const title = Crafty.e('2D, DOM, Text, Keyboard')
+      .attr({
+        x: 340,
+        y: 400,
+        w: 600,
+        h: 100
+      })
+    .text("Last Dream III")
+    .textFont({
+      size: '90px',
+      weight: '400',
+      letterspacing: '1px',
+      family: 'Vidaloka, serif'
+    })
+    .textColor("Black");
 
   // // Crafty.defineScene("world_screen", function() {
   // let clientPlayer = Crafty.e("2D, DOM, Color, Motion")

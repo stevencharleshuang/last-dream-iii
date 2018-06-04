@@ -38,6 +38,10 @@ $( document ).ready(function() {
     // Win Case
     let playerWin = undefined;
 
+    // Announcements
+    let playerAnnouncement = 'Choose an action with WASD and E to select!';
+    let enemyAnnouncement = '';
+
     /* Crafty Components */
     // Background Image
     Crafty.sprite('../images/battle-screen-bg-01.png', { background:[ 0, 0, 888, 500 ] });
@@ -145,6 +149,53 @@ $( document ).ready(function() {
         family: 'Press Start 2P'
       })
       .textColor('#eee')
+      .bind('updatePlayerHP', (health) => {menuTextPlayerHP.text(health)});
+
+      const announcementBox = Crafty.e('2D, DOM, Text, Color, Keyboard')
+      .attr({
+        x: 0,
+        y: 0,
+        w: 875,
+        h: 90
+      })
+      .color('blue')
+      .css({
+        'border': '5px solid #eee',
+        'border-radius': '15px'
+      })
+
+
+      const playerAnnouncementText = Crafty.e('2D, DOM, Text, Keyboad')
+      .attr({
+        x: 20,
+        y: 20,
+        w: 875,
+        h: 90
+      })
+      .text(playerAnnouncement)
+      .textFont({
+        size: '15px',
+        weight: '400',
+        family: 'Press Start 2P'
+      })
+      .textColor('#eee')
+      .bind('updatePlayerAnnouncement', (message) => {playerAnnouncementText.text(message)});
+
+      const enemyAnnouncementText = Crafty.e('2D, DOM, Text, Keyboad')
+      .attr({
+        x: 20,
+        y: 50,
+        w: 875,
+        h: 90
+      })
+      .text(enemyAnnouncement)
+      .textFont({
+        size: '15px',
+        weight: '400',
+        family: 'Press Start 2P'
+      })
+      .textColor('#eee')
+      .bind('updateEnemyAnnouncement', (message) => {enemyAnnouncementText.text(message)});
 
     Crafty.sprite('../images/pointer.png', { pointer:[ 0, 0, 60, 50 ] });
     const pointer = Crafty.e('2D, DOM, pointer')
@@ -194,10 +245,18 @@ $( document ).ready(function() {
             playerActions(actionChosen);
             timer = 0;
             setTimeout(() => {
+              playerAnnouncement = 'Player energy recharging';
+              Crafty.trigger('updatePlayerAnnouncement', playerAnnouncement);
+            }, 1000)
+            setTimeout(() => {
+              playerAnnouncement = 'Player energy recharged';
+              Crafty.trigger('updatePlayerAnnouncement', playerAnnouncement);
               timer = 5;
             }, 5000);
           }
           console.log('Pointer heard a decision: ', actionChosen);
+          playerAnnouncement = (`Player chose: ${actionChosen}`);
+          Crafty.trigger('updatePlayerAnnouncement', playerAnnouncement);
         }
     });
 
@@ -216,9 +275,9 @@ $( document ).ready(function() {
           break;
         // add healVal to current playerHP
         case 'heal':
-          console.log('Player chose: ', action);
           playerHP += healVal;
           console.log('Current playerHP = ', playerHP);
+          Crafty.trigger('updatePlayerHP', playerHP);
           break;
       }
     };
@@ -228,17 +287,16 @@ $( document ).ready(function() {
       switch (action) {
         // reduce playerHP by attackVal
         case 'fight':
-          console.log('Player chose: ', action)
           playerHP -= attackVal;
+          // menuTextPlayerHP.text = playerHP;
+          Crafty.trigger('updatePlayerHP', playerHP);
           console.log('Current playerHP = ', playerHP);
           break;
         // next player attack reduced by defendVal
         case 'defend':
-          console.log('Player chose: ', action);
           break;
         // add healVal to current playerHP
         case 'heal':
-          console.log('Player chose: ', action);
           enemyHP += healVal;
           console.log('Current enemyHP = ', enemyHP);
           break;
@@ -248,6 +306,8 @@ $( document ).ready(function() {
     // Enemy "AI"
     const enemyAction = setInterval((action) => {
       action = actionChoices[Math.floor(Math.random() * 2)]
+      enemyAnnouncement = `Enemy chose: ${action}`
+      Crafty.trigger('updateEnemyAnnouncement', enemyAnnouncement);
       console.log('Enemy chose:', action);
       enemyActions(action);
     }, 5000);
@@ -260,13 +320,19 @@ $( document ).ready(function() {
 
     function healthCheck() {
       if (playerHP <= 0 && enemyHP >= 0) {
-        console.log('Player Loses')
+        console.log('Player Loses');
         clearInterval(checkWin);
+        clearInterval(enemyAction);
+        playerAnnouncement = 'Player Loses';
+        Crafty.trigger('updatePlayerAnnouncement', playerAnnouncement);
         return playerWin = true;
       }
       else if (playerHP >= 0 && enemyHP <= 0) {
-        console.log('Player Wins')
+        console.log('Player Wins');
         clearInterval(checkWin);
+        clearInterval(enemyAction);
+        playerAnnouncement = 'Player Wins';
+        Crafty.trigger('updatePlayerAnnouncement', playerAnnouncement);
         return playerWin = false;
       }
     }
