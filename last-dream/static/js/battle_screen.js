@@ -18,6 +18,27 @@ $( document ).ready(function() {
   Crafty.defineScene("battle_screen", function() {
     console.log('battle_screen.js: Loaded');
 
+    /* Battle Mechanics Vars */
+    let timer = 5;
+
+    // Points System (Attack and Health)
+    let playerHP = 1000;
+    let enemyHP = 1000;
+    let attackVal = Math.floor(Math.random() * 100) + 80;
+    let healVal = Math.floor(Math.random() * 50) + 20;
+    let defendVal = Math.floor(Math.random() * 100) + 80;
+
+    // Battle Actions
+    let actionChoices = [];
+    actionChoices.push('fight', 'defend', 'heal');
+    let currentChoice = actionChoices[0];
+    let actionChosen = undefined;
+    let i = 0;
+
+    // Win Case
+    let playerWin = undefined;
+
+    /* Crafty Components */
     // Background Image
     Crafty.sprite('../images/battle-screen-bg-01.png', { background:[ 0, 0, 888, 500 ] });
     const bg = Crafty.e('2D, DOM, background')
@@ -117,7 +138,7 @@ $( document ).ready(function() {
         x: 550,
         y: 370
       })
-      .text('1234')
+      .text(playerHP)
       .textFont({
         size: '20px',
         weight: '400',
@@ -152,22 +173,7 @@ $( document ).ready(function() {
       })
 
     /* Battle Mechanics */
-    // Points System (Attack and Health)
-    let playerHP = 1000;
-    let enemyHP = 1000;
-    let attackVal = Math.floor(Math.random() * 100) + 80;
-    let healVal = Math.floor(Math.random() * 50) + 20;
-    let defendVal = Math.floor(Math.random() * 100) + 80;
 
-    // Battle Actions
-    let actionChoices = [];
-    actionChoices.push('fight', 'defend', 'heal');
-    let currentChoice = actionChoices[0];
-    let actionChosen = undefined;
-    let i = 0;
-
-    // Win Case
-    let playerWin = undefined;
 
     // Actions Event Handler
     pointer.bind('KeyDown', function(e) {
@@ -182,15 +188,21 @@ $( document ).ready(function() {
           currentChoice = actionChoices[i + 1];
           i += 1;
           console.log('Current action choice: ', currentChoice);
-        } else if (e.key === Crafty.keys.E || e.key === Crafty.keys.SPACE) {
-          actionChosen = currentChoice;
-          playerActions(actionChosen);
+        } else if (e.key === Crafty.keys.E) {
+          if (timer === 5) {
+            actionChosen = currentChoice;
+            playerActions(actionChosen);
+            timer = 0;
+            setTimeout(() => {
+              timer = 5;
+            }, 5000);
+          }
           console.log('Pointer heard a decision: ', actionChosen);
         }
     });
 
     // Player Actions
-    function playerActions (action) {
+    function playerActions(action) {
       switch (action) {
         // reduce enemyHP by attackVal
         case 'fight':
@@ -212,7 +224,7 @@ $( document ).ready(function() {
     };
 
     // Enemy Actions
-    function enemyActions (action) {
+    function enemyActions(action) {
       switch (action) {
         // reduce playerHP by attackVal
         case 'fight':
@@ -237,6 +249,7 @@ $( document ).ready(function() {
     const enemyAction = setInterval((action) => {
       action = actionChoices[Math.floor(Math.random() * 2)]
       console.log('Enemy chose:', action);
+      enemyActions(action);
     }, 5000);
 
     /* Win Logic */
