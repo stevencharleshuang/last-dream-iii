@@ -26,18 +26,33 @@ $( document ).ready(function() {
   //   console.log('main.js: This is websocket: ', websocket)
   //   return false;
   // });
+  //
   let playerID;
+
+  /* On Message from server
+     * Parse incoming data and store in var
+     * Isolate players arr from message and store in var
+     * Iterate over players arr
+     * Each player's entity receives properties sent from server
+  */
   websocket.onmessage = function(evt) {
     // console.log('>>>>>>>>>>>> client ln 34 evt.data.player: ', evt.data.player);
-    let resp = JSON.parse(evt.data);
-    let players = resp.players;
-    console.log('>>>>>>>>>>>> client: resp: ', resp);
+    let message = JSON.parse(evt.data);
+    let players = message.players;
+    console.log('>>>>>>>>>>>> client: message: ', message);
     players.forEach(data => {
-      console.log('<<< Client: Received msg from server: ', data)
-      player
-        .attr({x:data.x, y:data.y, w:25, h:25})
-        .color("red")
-      playerID = data.id;
+      console.log('<<< Client: Received msg from server - data: ', data)
+      if (data.id !== playerID) {
+        let newPlayer = Crafty.e("2D, DOM, Color, Motion")
+                          .attr({x:data.x, y:data.y, w:25, h:25})
+                          .color("red");
+      } else {
+        player
+          .attr({x:data.x, y:data.y, w:25, h:25})
+          .color("red");
+        console.log('Client player: ', player);
+        playerID = data.id;
+      }
     });
     console.log('main.js ws.onmessage: event triggered');
     console.log('main.js ws.onmessage: evt: ', evt);
@@ -50,7 +65,7 @@ $( document ).ready(function() {
     if (e.key == Crafty.keys.W) { // W = Up
       // this.y=this.y-20; // Remove this
       player.onKeyDown(); // Remove this
-      playerPos.y -= 20;
+      playerPos.y = playerPos.y - 20;
       console.log('new playerPos: ', playerPos) // Remove this
       websocket.send(JSON.stringify(playerPos));
       console.log('playerPos post WS send: ', playerPos);
@@ -80,9 +95,9 @@ $( document ).ready(function() {
   });
 
   websocket.onerror = function(evt) {
-    $('#messages').append($('<li>')
-      .text('<span style="color: red;">ERROR:</span> ' + evt.data));
-    console.log('main.js websocket.onmessage: event triggered');
+    // $('#messages').append($('<li>')
+    //   .text('<span style="color: red;">ERROR:</span> ' + evt.data));
+    console.log('main.js websocket.onmessage: error event triggered');
   };
 
   // TESTING ONLY - TBR - Player Position Loggging
