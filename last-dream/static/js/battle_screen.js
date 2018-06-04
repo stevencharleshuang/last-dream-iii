@@ -192,32 +192,57 @@ $( document ).ready(function() {
     // Player Actions
     function playerActions (action) {
       switch (action) {
+        // reduce enemyHP by attackVal
         case 'fight':
           console.log('Player chose: ', action)
           enemyHP -= attackVal;
           console.log('Current enemyHP = ', enemyHP);
           break;
+        // next enemy attack reduced by defendVal
         case 'defend':
-          console.log('Player chose: ', action)
-          // next enemy attack reduced by defendVal
+          console.log('Player chose: ', action);
           break;
+        // add healVal to current playerHP
         case 'heal':
-          console.log('Player chose: ', action)
-          // add healVal to current playerHP
+          console.log('Player chose: ', action);
           playerHP += healVal;
+          console.log('Current playerHP = ', playerHP);
           break;
       }
     };
 
     // Enemy Actions
-    function enemyActions () {
-
+    function enemyActions (action) {
+      switch (action) {
+        // reduce playerHP by attackVal
+        case 'fight':
+          console.log('Player chose: ', action)
+          playerHP -= attackVal;
+          console.log('Current playerHP = ', playerHP);
+          break;
+        // next player attack reduced by defendVal
+        case 'defend':
+          console.log('Player chose: ', action);
+          break;
+        // add healVal to current playerHP
+        case 'heal':
+          console.log('Player chose: ', action);
+          enemyHP += healVal;
+          console.log('Current enemyHP = ', enemyHP);
+          break;
+      }
     }
+
+    // Enemy "AI"
+    const enemyAction = setInterval((action) => {
+      action = actionChoices[Math.floor(Math.random() * 2)]
+      console.log('Enemy chose:', action);
+    }, 5000);
 
     /* Win Logic */
     const checkWin = setInterval(() => {
       healthCheck();
-      console.log('Checking Healths')
+      // console.log('Checking Healths');
     }, 500);
 
     function healthCheck() {
