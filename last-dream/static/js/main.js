@@ -12,21 +12,6 @@ $( document ).ready(function() {
   websocket.onopen = function(evt) {
     console.log('<<< Client: Wraith awaiting launch orders')
   }
-  // $('form').submit(function() {
-  //   name = $('#name').val() ? $('#name').val() : 'Anonymous';
-  //   $('#name-div').hide();
-  //   $('#welcome').text('Hello ' + name);
-  //   websocket.send(JSON.stringify({
-  //     // name: name,
-  //     // message: $('#message').val(),
-  //     player_x: player._x,
-  //     player_y: player._y
-  //   }));
-  //   // $('#message').val('');
-  //   console.log('main.js: This is websocket: ', websocket)
-  //   return false;
-  // });
-  //
   let playerID;
 
   /* On Message from server
@@ -36,22 +21,22 @@ $( document ).ready(function() {
      * Each player's entity receives properties sent from server
   */
   websocket.onmessage = function(evt) {
-    // console.log('>>>>>>>>>>>> client ln 34 evt.data.player: ', evt.data.player);
+    console.log('>>>>>>>>>>>> client ln 34 evt.data.player: ', evt);
     let message = JSON.parse(evt.data);
     let players = message.players;
     console.log('>>>>>>>>>>>> client: message: ', message);
-    for ( let data in players) {
-      console.log('<<< Client: Received msg from server - data: ', data)
-      if (data.id !== playerID) {
+    for (let id in players) {
+      console.log('<<< Client: Received msg from server - data: ', )
+      if (id !== playerID) {
         let newPlayer = Crafty.e("2D, DOM, Color, Motion")
-                          .attr({ x:data.x, y:data.y, w:25, h:25 })
-                          .color("red");
+                          .attr({ x:players[id].x, y:players[id].y, w:25, h:25 })
+                          .color("blue");
       } else {
         player
-          .attr({ x:data.x, y:data.y, w:25, h:25 })
+          .attr({ x:players[id].x, y:players[id].y, w:25, h:25 })
           .color("red");
         console.log('Client player: ', player);
-        playerID = data.id;
+        playerID = players[id].id;
       }
     }
     console.log('main.js ws.onmessage: event triggered');
