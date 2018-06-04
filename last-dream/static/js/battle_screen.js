@@ -143,7 +143,7 @@ $( document ).ready(function() {
           this.y = this.y - 40;
           currentChoice = actionChoices[i - 1];
           i -= 1;
-          console.log('player moved up')
+          console.log('Current action choice: ', currentChoice);
         } else if (e.key === Crafty.keys.S && this.y < 430) {
           this.y = this.y + 40;
           currentChoice = actionChoices[i + 1];
@@ -151,7 +151,7 @@ $( document ).ready(function() {
           console.log('Current action choice: ', currentChoice);
         } else if (e.key === Crafty.keys.ENTER || e.key === Crafty.keys.SPACE) {
           actionChosen = currentChoice;
-          console.log('Pointer heard a decision', )
+          console.log('Pointer heard a decision: ', actionChosen);
         }
     });
 

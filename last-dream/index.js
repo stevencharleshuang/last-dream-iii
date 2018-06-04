@@ -11,8 +11,9 @@ const express         = require('express'),
       PORT            = process.env.PORT || 3001,
       crypto          = require('crypto'),
       WebSocketServer = require('ws').Server,
-      wss             = new WebSocketServer({              
+      wss             = new WebSocketServer({
                           port: 8080,
+                          clientTracking: true,
                         }),
       location        = URL.parse('http://127.0.0.1:3001/game');
 
@@ -40,36 +41,51 @@ let gameState = {};
 let players = [];
 let clients = [];
 
-// On New Client Connection
+/* On New Client Connection
+   * Grab Unique WS Key
+   * Get random values to initialize client entity at a random location
+   * Push new client to players arr and clients
+   * Send JSON to client with gameState, id, x and y coordinates
+*/
 wss.on('connection', (ws, req) => {
   const id = req.headers['sec-websocket-key'];
   const playerInitX = Math.floor(Math.random() * 600),
         playerInitY = Math.floor(Math.random() * 400);
   players.push({id: id, x: playerInitX, y: playerInitY});
   clients.push(ws);
-  
-  console.log('Connected players: ', players)
+  // console.log('Clients collection: ', clients);
+  console.log('Connected players: ', players);
   ws.send(JSON.stringify({gameState:'gameState', id: id, players:players}));
-  ws.on('message', function(message) {
+
+  /* On Message from client
+     * Parse message and store in var
+     * Switch-Case if Object.keys has parsedMessage
+     * If payload has gameState key
+     * Assign parsedMessage Object Keys to gameState
+     * Iterate through clients array
+     * Send each client JSON gameState, id and players array
+  */
+  ws.on('message', (message) => {
+    console.log('>>>>>>>>>> server: message received')
     let parsedMessage = JSON.parse(message)
     console.log('>>> Server: New client connected id:', id)
     console.log('>>>>>>>>> ln 52 message', message)
     switch(Object.keys(parsedMessage)[0]) {
       case 'gameState':
+        console.log('parsedMessage: ', parsedMessage)
         gameState = parsedMessage[Object.keys(parsedMessage)[0]]
-        clients.forEach((client) => {
-          client.send(JSON.stringify({
+        players.forEach((player) => {
+          ws.send(JSON.stringify({
             gameState: gameState,
             id: id,
             players: players,
           }));
-          // client.send({
-          //   gameState: gameState,
-          // })
         })
+        break;
     }
   })
 });
+
 
 // });
 // wss.broadcast = function broadcast(data) {
@@ -80,14 +96,7 @@ wss.on('connection', (ws, req) => {
 //   });
 // };
 
-  // wss.on('message', (msg) => {
-  //   let data = JSON.parse(msg);
-  //     // players.forEach(function (player) {
-  //       console.log(`>>> Server: Received msg from client ${player.id} : ${msg}`)
-  //       ws.send(JSON.stringify(data))
 
-  //     // });
-  // })
 /* Add WS End */
 
 app.listen(PORT, () => {
