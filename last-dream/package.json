@@ -1,0 +1,38 @@
+{
+  "name": "last-dream",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bulma": "^0.7.1",
+    "concurrently": "^3.5.1",
+    "cookie": "^0.3.1",
+    "cookie-parser": "^1.4.3",
+    "craftyjs": "^0.8.0",
+    "crypto": "^1.0.1",
+    "express": "^4.16.3",
+    "ip": "^1.1.5",
+    "jquery": "^3.3.1",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.5",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "url": "^0.11.0",
+    "ws": "^5.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "express": "nodemon index.js",
+    "con": "concurrently \"react-scripts start\" \"nodemon index.js\""
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "Steven Charles Huang",
+  "license": "ISC",
+  "proxy": "http://localhost:3001"
+}
