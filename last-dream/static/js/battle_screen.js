@@ -156,16 +156,18 @@ $( document ).ready(function() {
     let playerHP = 1000;
     let enemyHP = 1000;
     let attackVal = Math.floor(Math.random() * 100) + 80;
-    let healVal = Math.floor(Math.random() * 100) + 80;
+    let healVal = Math.floor(Math.random() * 50) + 20;
     let defendVal = Math.floor(Math.random() * 100) + 80;
 
     // Battle Actions
     let actionChoices = [];
     actionChoices.push('fight', 'defend', 'heal');
-    console.log('action choices: ', actionChoices)
     let currentChoice = actionChoices[0];
     let actionChosen = undefined;
     let i = 0;
+
+    // Win Case
+    let playerWin = undefined;
 
     // Actions Event Handler
     pointer.bind('KeyDown', function(e) {
@@ -180,7 +182,7 @@ $( document ).ready(function() {
           currentChoice = actionChoices[i + 1];
           i += 1;
           console.log('Current action choice: ', currentChoice);
-        } else if (e.key === Crafty.keys.ENTER || e.key === Crafty.keys.SPACE) {
+        } else if (e.key === Crafty.keys.E || e.key === Crafty.keys.SPACE) {
           actionChosen = currentChoice;
           playerActions(actionChosen);
           console.log('Pointer heard a decision: ', actionChosen);
@@ -192,16 +194,44 @@ $( document ).ready(function() {
       switch (action) {
         case 'fight':
           console.log('Player chose: ', action)
+          enemyHP -= attackVal;
+          console.log('Current enemyHP = ', enemyHP);
           break;
         case 'defend':
           console.log('Player chose: ', action)
+          // next enemy attack reduced by defendVal
           break;
         case 'heal':
           console.log('Player chose: ', action)
+          // add healVal to current playerHP
+          playerHP += healVal;
           break;
       }
     };
 
+    // Enemy Actions
+    function enemyActions () {
+
+    }
+
+    /* Win Logic */
+    const checkWin = setInterval(() => {
+      healthCheck();
+      console.log('Checking Healths')
+    }, 500);
+
+    function healthCheck() {
+      if (playerHP <= 0 && enemyHP >= 0) {
+        console.log('Player Loses')
+        clearInterval(checkWin);
+        return playerWin = true;
+      }
+      else if (playerHP >= 0 && enemyHP <= 0) {
+        console.log('Player Wins')
+        clearInterval(checkWin);
+        return playerWin = false;
+      }
+    }
 
 
   // Closes Battle Screen
