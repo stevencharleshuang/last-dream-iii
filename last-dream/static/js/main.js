@@ -2,7 +2,7 @@ $( document ).ready(function() {
   console.log('main.js: jQuery ready!');
 
   // Socket Connection Init
-  websocket = new WebSocket("ws://192.168.30.144:8080/");
+  websocket = new WebSocket("ws://localhost:8080/");
 
   // Crafty Init Game Board
   Crafty.init(888,500, document.getElementById('game'));
@@ -53,7 +53,6 @@ $( document ).ready(function() {
       playerPos.y = playerPos.y - 20;
       console.log('new playerPos: ', playerPos) // Remove this
       websocket.send(JSON.stringify(playerPos));
-      console.log('playerPos post WS send: ', playerPos);
       // player.y = player._y; // Remove this
     } else if (e.key == Crafty.keys.A) { // A = Left
       // this.x=this.x-20;

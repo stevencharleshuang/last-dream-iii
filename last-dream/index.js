@@ -59,7 +59,7 @@ wss.on('connection', (ws, req) => {
     ws.send(JSON.stringify({
       gameState:'gameState',
       id: id,
-      players:players,
+      players: players,
     }));
   // });
 
@@ -76,10 +76,12 @@ wss.on('connection', (ws, req) => {
     let parsedMessage = JSON.parse(message)
     console.log('>>> Server: New client connected id:', id)
     console.log('>>>>>>>>> ln 52 message', message)
-
-      // if (c) {
-
-      // }
+    if (players[id].x !== 0) {
+      players[id].x += parsedMessage.x
+    }
+    if (players[id].y !== 0) {
+      players[id].y += parsedMessage.y;
+    }
     switch(Object.keys(parsedMessage)[0]) {
       case 'gameState':
         console.log('parsedMessage: ', parsedMessage)
