@@ -2,7 +2,7 @@ $( document ).ready(function() {
   console.log('main.js: jQuery ready!');
 
   // Socket Connection Init
-  websocket = new WebSocket("ws://localhost:8080/");
+  websocket = new WebSocket("ws://192.168.30.144:8080/");
 
   // Crafty Init Game Board
   Crafty.init(888,500, document.getElementById('game'));
@@ -40,20 +40,20 @@ $( document ).ready(function() {
     let message = JSON.parse(evt.data);
     let players = message.players;
     console.log('>>>>>>>>>>>> client: message: ', message);
-    players.forEach(data => {
+    for ( let data in players) {
       console.log('<<< Client: Received msg from server - data: ', data)
       if (data.id !== playerID) {
         let newPlayer = Crafty.e("2D, DOM, Color, Motion")
-                          .attr({x:data.x, y:data.y, w:25, h:25})
+                          .attr({ x:data.x, y:data.y, w:25, h:25 })
                           .color("red");
       } else {
         player
-          .attr({x:data.x, y:data.y, w:25, h:25})
+          .attr({ x:data.x, y:data.y, w:25, h:25 })
           .color("red");
         console.log('Client player: ', player);
         playerID = data.id;
       }
-    });
+    }
     console.log('main.js ws.onmessage: event triggered');
     console.log('main.js ws.onmessage: evt: ', evt);
   };

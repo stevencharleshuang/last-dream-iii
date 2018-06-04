@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
 // });
 
 let gameState = {};
-let players = [];
+let players = {};
 let clients = [];
 
 /* On New Client Connection
@@ -51,11 +51,17 @@ wss.on('connection', (ws, req) => {
   const id = req.headers['sec-websocket-key'];
   const playerInitX = Math.floor(Math.random() * 600),
         playerInitY = Math.floor(Math.random() * 400);
-  players.push({id: id, x: playerInitX, y: playerInitY});
+  players[id] = {id: id, x: playerInitX, y: playerInitY};
   clients.push(ws);
   // console.log('Clients collection: ', clients);
   console.log('Connected players: ', players);
-  ws.send(JSON.stringify({gameState:'gameState', id: id, players:players}));
+  // clients.forEach((player) => {
+    ws.send(JSON.stringify({
+      gameState:'gameState',
+      id: id,
+      players:players,
+    }));
+  // });
 
   /* On Message from client
      * Parse message and store in var
@@ -70,18 +76,24 @@ wss.on('connection', (ws, req) => {
     let parsedMessage = JSON.parse(message)
     console.log('>>> Server: New client connected id:', id)
     console.log('>>>>>>>>> ln 52 message', message)
+
+      // if (c) {
+
+      // }
     switch(Object.keys(parsedMessage)[0]) {
       case 'gameState':
         console.log('parsedMessage: ', parsedMessage)
         gameState = parsedMessage[Object.keys(parsedMessage)[0]]
-        players.forEach((player) => {
+        // players.forEach((player) => {
           ws.send(JSON.stringify({
             gameState: gameState,
             id: id,
             players: players,
           }));
-        })
+        // })
         break;
+      case 'movement':
+        console.log('>>>>> server: detected movement')
     }
   })
 });
