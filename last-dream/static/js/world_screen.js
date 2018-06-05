@@ -9,7 +9,7 @@ $( document ).ready(function() {
 
 
   Crafty.defineScene("world_screen", function() {
-    websocket = new WebSocket("ws://173.2.0.31:8080/");
+    websocket = new WebSocket("ws://localhost:8080/");
 
     websocket.onopen = function(evt) {
       console.log('<<< Client: Wraith awaiting launch orders')

@@ -5,8 +5,6 @@ const express         = require('express'),
       logger          = require('morgan'),
       http            = require('http').Server(app),
       path            = require('path'),
-      // cookie = require('cookie'),
-      // cookieParser = require('cookie-parser'),
       URL             = require('url'),
       PORT            = process.env.PORT || 3001,
       crypto          = require('crypto'),
@@ -15,7 +13,6 @@ const express         = require('express'),
                           port: 8080,
                           clientTracking: true,
                         }),
-      location        = URL.parse('http://127.0.0.1:3001/game');
 
 
 app.use(logger('dev'));
@@ -103,14 +100,6 @@ wss.on('connection', (ws, req) => {
 });
 
 
-// });
-// wss.broadcast = function broadcast(data) {
-//   wss.player.forEach(function each(player) {
-//     if (player.readyState === WebSocket.OPEN) {
-//       player.send(data);
-//     }
-//   });
-// };
 
 
 /* Add WS End */
