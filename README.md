@@ -210,3 +210,9 @@ Use this section to include a brief code snippet of functionality that you are p
 #### SAMPLE.....
 **ERROR**: app.js:34 Uncaught SyntaxError: Unexpected identifier                                
 **RESOLUTION**: Missing comma after first object in sources {} object
+
+## Sources
+
+Game concepts and images heavily borrowed from Final Fantasy VI (aka Final Fantasy III)
+
+* [Sprites Source](http://finalfantasy.wikia.com/wiki/Final_Fantasy_Wiki)
