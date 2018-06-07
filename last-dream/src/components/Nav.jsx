@@ -13,7 +13,7 @@ export default function Nav() {
           <li className='navbar-item is-size-5'><Link to="/">Home</Link></li>
           <li className='navbar-item is-size-5'><Link to="/news">News</Link></li>
           <li className='navbar-item is-size-5'><Link to="/about">About</Link></li>
-          <li className='navbar-item is-size-5'><Link to="/game" id="game-link">Game</Link></li>
+          <li className='navbar-item is-size-5'><a href="http://localhost:3001/game">Game</a></li>
         </ul>
         <button className="button navbar-burger">
           <span />
