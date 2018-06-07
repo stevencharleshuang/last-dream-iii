@@ -12,7 +12,7 @@ const express         = require('express'),
       wss             = new WebSocketServer({
                           port: 8080,
                           clientTracking: true,
-                        }),
+                        })
 
 
 app.use(logger('dev'));
