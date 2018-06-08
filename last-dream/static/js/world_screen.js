@@ -1,10 +1,6 @@
 $( document ).ready(function() {
   console.log('world_screen.js: jQuery ready!');
 
-
-
-
-
   Crafty.defineScene('world_screen', function() {
     let clientPlayer = Crafty.e('2D, DOM, Color, Collision')
     let newPlayer;
