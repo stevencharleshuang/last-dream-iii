@@ -1,8 +1,10 @@
+let websocket;
+
 $( document ).ready(function() {
   console.log('world_screen.js: jQuery ready!');
 
   Crafty.defineScene('world_screen', function() {
-    let clientPlayer = Crafty.e('2D, DOM, Color, Collision')
+    let clientPlayer;
     let newPlayer;
     let playerID;
 
@@ -10,12 +12,10 @@ $( document ).ready(function() {
     function unleashTheBeasts(beast) {
       if (beast === 'gilgamesh') {
         /* NPC Gilgamesh */
-        let gilgamesh = Crafty.e('2D, DOM, Color, Collision, Gilgamesh')
+        let gilgamesh = Crafty.e('2D, DOM, Color, Collision, Battle')
                           .attr({ x: 400, y: 400, w: 25, h: 25 })
                           .color('purple')
                           .collision()
-
-
       }
     }
 
@@ -25,41 +25,51 @@ $( document ).ready(function() {
     websocket.onopen = function(evt) {
       console.log('<<< Client: Wraith awaiting launch orders')
       unleashTheBeasts('gilgamesh');
-
+      // initClientPlayer();
     }
 
-    function initNewPlayer(player) {
-      newPlayer = Crafty.e('2D, DOM, Color, locke, Collision')
-    }
 
-    function updateNewPlayer(player) {
-      newPlayer
-        .attr({ x:player.x, y:player.y, w:25, h:25 })
-        .color("blue")
-        .collision()
-        .onHit('Gilgamesh', function() {
-          console.log('%%%%%%%%%%%%%% Hit detected')
-          // this.stop();
-          Crafty.enterScene('battle_screen');
-
-        })
-    }
-
-    function initClientPlayer(player) {
-
-    }
-
-    function updateClientPlayer(player) {
-      clientPlayer
-        .attr({ x:player.x, y:player.y, w:25, h:25 })
-        .color("red");
-    }
-    console.log('world_screen.js: Loaded');
     // Socket Connection Init
 
     Crafty.sprite('../images/map.png', { background:[ 0, 0, 888, 500 ] });
     const bg = Crafty.e('2D, DOM, background')
     Crafty.sprite('../images/locke_map.png', { locke:[0,0,20,30] });
+
+    // Player Init/Update Funcs
+    function initNewPlayer(player) {
+      clientPlayer = Crafty.e('2D, DOM, Color, locke, Collision')
+    }
+
+    function updateNewPlayer(player) {
+      newPlayer
+        .attr({ x:player.x, y:player.y, w:25, h:25 })
+        .color("red")
+        .collision()
+        .onHit('Battle', function() {
+          console.log('%%%%%%%%%%%%%% Hit detected')
+          // this.stop();
+          Crafty.enterScene('battle_screen');
+        })
+    }
+
+    function initClientPlayer(player) {
+      clientPlayer = Crafty.e('2D, DOM, Color, locke, Collision');
+      // updateClientPlayer(players);
+    }
+
+    function updateClientPlayer(player) {
+      clientPlayer
+        .attr({ x:player.x, y:player.y, w:25, h:25 })
+        .color("blue")
+        .collision()
+        .onHit('Battle', function() {
+          console.log('%%%%%%%%%%%%%% Hit detected')
+          // this.stop();
+          Crafty.enterScene('battle_screen');
+        })
+    }
+    console.log('world_screen.js: Loaded');
+
     /* On Message from server
        * Parse incoming data and store in var
        * Isolate players arr from message and store in var
@@ -72,14 +82,14 @@ $( document ).ready(function() {
       let players = message.players;
       // console.log('>>>>>>>>>>>> client: message: ', message);
       console.log('>>>>>>>>>>>> client: players: ', players);
-
-
       for (let id in players) {
         console.log('<<< Client: Received msg from server - players[id]: ', players[id])
         if (players[id].id !== playerID && playerID !== undefined) {
+        // initClientPlayer(players[id]);
+
           (newPlayer !== undefined)
-            ? updateNewPlayer(players[id])
-            : initNewPlayer(players[id])
+            ? updateClientPlayer(players[id])
+            : initClientPlayer(players[id])
         }
         // else if (players[id].id !== playerID && playerID === undefined) {
         //   updateClientPlayer(players[id]);
@@ -132,10 +142,10 @@ $( document ).ready(function() {
     };
 
     // TESTING ONLY - TBR - Player Position Loggging
-    clientPlayer.onKeyDown = function(e) {
-      console.log(`main.js onKeyDown: You did a thing.
-        player x: ${clientPlayer._x}, player y: ${clientPlayer._y}`);
-    };
+    // clientPlayer.onKeyDown = function(e) {
+    //   console.log(`main.js onKeyDown: You did a thing.
+    //     player x: ${clientPlayer._x}, player y: ${clientPlayer._y}`);
+    // };
 
   // Closes World Game Screen func
   });

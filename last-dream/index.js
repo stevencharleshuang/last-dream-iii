@@ -99,11 +99,6 @@ wss.on('connection', (ws, req) => {
   })
 });
 
-
-
-
-/* Add WS End */
-
 app.listen(PORT, () => {
   console.log(`>>> Server up and running! Port: ${PORT} Env: ${app.get('env')}`);
 });

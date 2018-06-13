@@ -1,3 +1,6 @@
+    // Win Case
+    let playerWin = undefined;
+
 $( document ).ready(function() {
   // Import Tests
   console.log('battle_screen.js: jQuery ready!');
@@ -35,8 +38,6 @@ $( document ).ready(function() {
     let actionChosen = undefined;
     let i = 0;
 
-    // Win Case
-    let playerWin = undefined;
 
     // Announcements
     let playerAnnouncement = 'Choose an action with WASD and E to select!';
