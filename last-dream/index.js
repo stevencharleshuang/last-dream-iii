@@ -83,7 +83,7 @@ wss.on('connection', (ws, req) => {
     }
     switch(Object.keys(parsedMessage)[0]) {
       case 'gameState':
-        console.log('parsedMessage: ', parsedMessage)
+        console.log('>>>>> server: received case [gameState] parsedMessage: ', parsedMessage)
         gameState = parsedMessage[Object.keys(parsedMessage)[0]]
         for (let id in players) {
           ws.send(JSON.stringify({
@@ -94,7 +94,7 @@ wss.on('connection', (ws, req) => {
         }
         break;
       case 'movement':
-        console.log('>>>>> server: detected movement')
+        console.log('>>>>> server: received case [movement]: ')
     }
   })
 });
