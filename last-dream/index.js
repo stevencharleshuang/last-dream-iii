@@ -1,18 +1,14 @@
-const express         = require('express'),
-      $               = require('jquery'),
-      Crafty          = require('craftyjs'),
-      app             = express(),
-      logger          = require('morgan'),
-      http            = require('http').Server(app),
-      path            = require('path'),
-      URL             = require('url'),
-      PORT            = process.env.PORT || 3001,
-      crypto          = require('crypto'),
-      WebSocketServer = require('ws').Server,
-      wss             = new WebSocketServer({
-                          port: 8080,
-                          clientTracking: true,
-                        })
+const app     = require('express')();
+const server  = require('http').Server(app);
+const io      = require('socket.io')(server);
+const express = require('express');
+const $       = require('jquery');
+const Crafty  = require('craftyjs');
+const logger  = require('morgan');
+const path    = require('path');
+const URL     = require('url');
+const PORT    = process.env.PORT || 3001;
+
 
 
 app.use(logger('dev'));
@@ -22,45 +18,15 @@ app.get('/game', function(req, res) {
     res.sendFile(__dirname + '/game.html');
 });
 
-// GLOBAL ERROR HANDLER
-app.use((err, req, res, next) => {
-  res.status(500).send('Something bad happened =(');
-});
 
-/* Add WS Beg */
+/* Add socket Beg */
 
-// wss.on("headers", function(headers) {
-//   headers["set-cookie"] = "SESSIONID=" + crypto.randomBytes(20).toString("hex");
-//   console.log("handshake response cookie", headers["set-cookie"]);
-// });
-
-let gameState = {};
-let players = {};
-let clients = [];
-
-/* On New Client Connection
-   * Grab Unique WS Key
-   * Get random values to initialize client entity at a random location
-   * Push new client to players arr and clients
-   * Send JSON to client with gameState, id, x and y coordinates
-*/
-wss.on('connection', (ws, req) => {
-  const id = req.headers['sec-websocket-key'];
+io.on('connection', (socket) => {
+  const id = socket.id;
   const playerInitX = Math.floor(Math.random() * 600),
         playerInitY = Math.floor(Math.random() * 400);
-  players[id] = {id: id, x: playerInitX, y: playerInitY};
-  clients.push(ws);
-  // console.log('Clients collection: ', clients);
-  console.log('Connected players: ', players);
-  // clients.forEach((player) => {
-  for (let id in players) {
-    ws.send(JSON.stringify({
-      gameState:'gameState',
-      id: id,
-      players: players,
-    }));
-  }
-  // });
+  // players = {id: id, x: playerInitX, y: playerInitY};
+  // console.log('Connected players: ', players);
 
   /* On Message from client
      * Parse message and store in var
@@ -70,33 +36,38 @@ wss.on('connection', (ws, req) => {
      * Iterate through clients array
      * Send each client JSON gameState, id and players array
   */
-  ws.on('message', (message) => {
-    console.log('>>>>>>>>>> server: message received')
-    let parsedMessage = JSON.parse(message)
-    console.log('>>> Server: New client connected id:', id)
-    console.log('>>>>>>>>> ln 52 message', message)
-    if (players[id].x >= 0) {
-      players[id].x += parsedMessage.x;
-    }
-    if (players[id].y >= 0) {
-      players[id].y += parsedMessage.y;
-    }
-    switch(Object.keys(parsedMessage)[0]) {
-      case 'gameState':
-        console.log('>>>>> server: received case [gameState] parsedMessage: ', parsedMessage)
-        gameState = parsedMessage[Object.keys(parsedMessage)[0]]
-        for (let id in players) {
-          ws.send(JSON.stringify({
-            gameState: gameState,
-            id: id,
-            players: players,
-          }));
-        }
-        break;
-      case 'movement':
-        console.log('>>>>> server: received case [movement]: ')
-    }
+  socket.on('message', (message) => {
+    // console.log('>>>>>>>>>> server: message received')
+    // let parsedMessage = JSON.parse(message)
+    // console.log('>>> Server: New client connected id:', id)
+    // console.log('>>>>>>>>> ln 52 message', message)
+    // if (players[id].x >= 0) {
+    //   players[id].x += parsedMessage.x;
+    // }
+    // if (players[id].y >= 0) {
+    //   players[id].y += parsedMessage.y;
+    // }
+    // switch(Object.keys(parsedMessage)[0]) {
+    //   case 'gameState':
+    //     console.log('>>>>> server: received case [gameState] parsedMessage: ', parsedMessage)
+    //     gameState = parsedMessage[Object.keys(parsedMessage)[0]]
+    //     for (let id in players) {
+    //       socket.send(JSON.stringify({
+    //         gameState: gameState,
+    //         id: id,
+    //         players: players,
+    //       }));
+    //     }
+    //     break;
+    //   case 'movement':
+    //     console.log('>>>>> server: received case [movement]: ')
+    // }
   })
+});
+
+// GLOBAL ERROR HANDLER
+app.use((err, req, res, next) => {
+  res.status(500).send('Something bad happened =(');
 });
 
 app.listen(PORT, () => {
