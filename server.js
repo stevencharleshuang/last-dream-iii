@@ -12,8 +12,16 @@ const logger    = require('morgan');
 app.use(express.static(path.join(__dirname, './public')));
 app.use(logger('dev'));
 
+let players = {};
 
+io.on('connection', (socket) => {
+  console.log(`>>> Server: Socket Server Up and Serving Clients`);
+  socket.on('new player', () => {
+    players[socket.id]
+  });
+  console.log(`>>> Server: Socket Server's Client Pool: ${players}`)
+});
 
 server.listen(PORT, () => {
   console.log(`Server up and listening on port: ${PORT}`)
-})
+});
