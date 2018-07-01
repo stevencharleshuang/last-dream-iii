@@ -1,0 +1,27 @@
+{
+  "name": "last-dream-iii",
+  "version": "2.0.0",
+  "description": "A multiplayer rpg based on final fantasy vi",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevencharleshuang/last-dream-iii.git"
+  },
+  "author": "Steven Charles Huang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevencharleshuang/last-dream-iii/issues"
+  },
+  "homepage": "https://github.com/stevencharleshuang/last-dream-iii#readme",
+  "dependencies": {
+    "craftyjs": "^0.8.0",
+    "express": "^4.16.3",
+    "jquery": "^3.3.1",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.5",
+    "socket.io": "^2.1.1"
+  }
+}
