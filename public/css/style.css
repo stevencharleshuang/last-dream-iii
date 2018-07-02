@@ -1,2 +1,10 @@
-body {}
-html {}
+html {
+}
+
+body {
+  text-align: center;
+}
+
+#game {
+  margin: 0 auto;
+}

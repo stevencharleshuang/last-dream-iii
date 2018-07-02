@@ -1,8 +1,5 @@
 $( document ).ready(() => {
-  // Import Tests
-  console.log('battle_screen.js: jQuery ready!');
-  console.log('battle_screen loaded')
-  // console.log('battle_screen.js WS:', websocket);
+
   // Paths
   Crafty.paths({
     audio : "../audio/",
@@ -16,7 +13,7 @@ $( document ).ready(() => {
 
   // Battle Screen
   Crafty.defineScene("battle_screen", () => {
-    console.log('battle_screen.js: Loaded');
+    console.log('battle_screen.js: ready!');
 
     /* Battle Mechanics Vars */
     let timer = 5;
