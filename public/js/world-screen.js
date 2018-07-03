@@ -10,9 +10,10 @@ $( document ).ready(() => {
     const bg = Crafty.e('2D, DOM, background')
     Crafty.sprite('../images/locke_map.png', { locke: [ 0, 0, 20, 30 ] });
 
-    function initClientPlayer() {
+    function initClientPlayer(x, y) {
       console.log('initClientPlayer() called')
       clientPlayer = Crafty.e('2D, DOM, Color, locke, Collision, Motion')
+        .attr({ x: x, y: y })
         .color("blue")
         .collision()
         .onHit('Battle', function() {
@@ -30,7 +31,7 @@ $( document ).ready(() => {
       $('.players-list').html('');
       players.forEach((player) => {
         $('.players-list').append(`<li>${player.id}</li>`);
-        initClientPlayer();
+        initClientPlayer(player.x, player.y);
       })
     });
     socket.emit('new player');

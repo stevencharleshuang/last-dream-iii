@@ -17,7 +17,9 @@ let players = [];
 io.on('connection', (socket) => {
   console.log(`>>> Server: Socket Server Up and Serving Clients`);
   socket.on('new player', () => {
-    players.push({id: socket.id})
+    const playerInitX = Math.floor(Math.random() * 600),
+          playerInitY = Math.floor(Math.random() * 400);
+    players.push({ id: socket.id, x: playerInitX, y: playerInitY })
     // players.forEach((player) => {
       io.emit('players-list', players)
     // console.log(`>>> Server: Socket Server's Client Pool: ${player.id}`)
