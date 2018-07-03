@@ -25,6 +25,15 @@ io.on('connection', (socket) => {
     // console.log(`>>> Server: Socket Server's Client Pool: ${player.id}`)
     // });
   });
+
+  socket.on('moveClientUp', (data) => {
+    console.log('clientMoveUp data:', data);
+    let newPlayerY = data.y - 25;
+    console.log('newPlayerY', newPlayerY);
+    io.emit('clientMoveUp', newPlayerY);
+  })
+
+// Closes io.on('connection')
 });
 
 server.listen(PORT, () => {
