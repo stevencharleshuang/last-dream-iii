@@ -10,6 +10,17 @@ $( document ).ready(() => {
     const bg = Crafty.e('2D, DOM, background')
     Crafty.sprite('../images/locke_map.png', { locke: [ 0, 0, 20, 30 ] });
 
+    function unleashTheBeasts(beast) {
+      if (beast === 'gilgamesh') {
+        /* NPC Gilgamesh */
+        let gilgamesh = Crafty.e('2D, DOM, Color, Collision, Battle')
+                          .attr({ x: 400, y: 400, w: 25, h: 25 })
+                          .color('purple')
+                          .collision()
+      };
+    };
+
+    unleashTheBeasts('gilgamesh');
     // Init Client Avatar At Randomized Location
     function initClientPlayer(id, x, y) {
       console.log('initClientPlayer() fired');
@@ -47,6 +58,7 @@ $( document ).ready(() => {
       };
     };
 
+    // Update Client Player Coords
     function moveClientPlayer (newPos) {
       clientPlayer.x = newPos.x;
       clientPlayer.y = newPos.y;
@@ -72,7 +84,7 @@ $( document ).ready(() => {
     });
 
     socket.on('clientNewCoords', (data) => {
-      console.log('clientNewCoords', data);
+      // console.log('clientNewCoords', data);
       moveClientPlayer(data);
     })
     socket.emit('new player');

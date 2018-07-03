@@ -1,5 +1,11 @@
-$( document ).ready(() => {
+    // Win Case
+    let playerWin = undefined;
 
+$( document ).ready(function() {
+  // Import Tests
+  console.log('battle_screen.js: jQuery ready!');
+  console.log('battle_screen loaded')
+  // console.log('battle_screen.js WS:', websocket);
   // Paths
   Crafty.paths({
     audio : "../audio/",
@@ -12,8 +18,8 @@ $( document ).ready(() => {
   };
 
   // Battle Screen
-  Crafty.defineScene("battle_screen", () => {
-    console.log('battle_screen.js: ready!');
+  Crafty.defineScene("battle_screen", function() {
+    console.log('battle_screen.js: Loaded');
 
     /* Battle Mechanics Vars */
     let timer = 5;
@@ -21,9 +27,9 @@ $( document ).ready(() => {
     // Points System (Attack and Health)
     let playerHP = 1000;
     let enemyHP = 1000;
-    let attackVal = Math.floor(Math.random() * 100) + 80;
-    let healVal = Math.floor(Math.random() * 50) + 20;
-    let defendVal = Math.floor(Math.random() * 100) + 80;
+    let attackVal = () => Math.floor(Math.random() * 100) + 80;
+    let healVal = () => Math.floor(Math.random() * 50) + 20;
+    let defendVal = () => Math.floor(Math.random() * 100) + 80;
 
     // Battle Actions
     let actionChoices = [];
@@ -32,8 +38,6 @@ $( document ).ready(() => {
     let actionChosen = undefined;
     let i = 0;
 
-    // Win Case
-    let playerWin = undefined;
 
     // Announcements
     let playerAnnouncement = 'Choose an action with WASD and E to select!';
@@ -263,7 +267,7 @@ $( document ).ready(() => {
         // reduce enemyHP by attackVal
         case 'fight':
           console.log('Player chose: ', action)
-          enemyHP -= attackVal;
+          enemyHP -= attackVal();
           console.log('Current enemyHP = ', enemyHP);
           break;
         // next enemy attack reduced by defendVal
@@ -272,7 +276,7 @@ $( document ).ready(() => {
           break;
         // add healVal to current playerHP
         case 'heal':
-          playerHP += healVal;
+          playerHP += healVal();
           console.log('Current playerHP = ', playerHP);
           Crafty.trigger('updatePlayerHP', playerHP);
           break;
@@ -284,7 +288,7 @@ $( document ).ready(() => {
       switch (action) {
         // reduce playerHP by attackVal
         case 'fight':
-          playerHP -= attackVal;
+          playerHP -= attackVal();
           // menuTextPlayerHP.text = playerHP;
           Crafty.trigger('updatePlayerHP', playerHP);
           console.log('Current playerHP = ', playerHP);
@@ -294,7 +298,7 @@ $( document ).ready(() => {
           break;
         // add healVal to current playerHP
         case 'heal':
-          enemyHP += healVal;
+          enemyHP += healVal();
           console.log('Current enemyHP = ', enemyHP);
           break;
       }
@@ -310,10 +314,7 @@ $( document ).ready(() => {
     }, 5000);
 
     /* Win Logic */
-    const checkWin = setInterval(() => {
-      healthCheck();
-      // console.log('Checking Healths');
-    }, 500);
+
 
     function healthCheck() {
       if (playerHP <= 0 && enemyHP >= 0) {
@@ -322,7 +323,7 @@ $( document ).ready(() => {
         clearInterval(enemyAction);
         playerAnnouncement = 'Player Loses';
         Crafty.trigger('updatePlayerAnnouncement', playerAnnouncement);
-        return playerWin = true;
+        return playerWin = false;
       }
       else if (playerHP >= 0 && enemyHP <= 0) {
         console.log('Player Wins');
@@ -330,9 +331,22 @@ $( document ).ready(() => {
         clearInterval(enemyAction);
         playerAnnouncement = 'Player Wins';
         Crafty.trigger('updatePlayerAnnouncement', playerAnnouncement);
-        return playerWin = false;
+        return playerWin = true;
       }
     }
+
+    const checkWin = setInterval(() => {
+      healthCheck();
+      // console.log('Checking Healths');
+      if (playerWin === true) {
+        console.log('player won')
+        Crafty.enterScene('world_screen');
+      }
+      else if (playerWin === false) {
+        console.log('player lost')
+        Crafty.enterScene('world_screen');
+      }
+    }, 500);
 
 
   // Closes Battle Screen

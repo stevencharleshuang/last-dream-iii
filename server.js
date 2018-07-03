@@ -16,14 +16,18 @@ let players = [];
 
 io.on('connection', (socket) => {
   console.log(`>>> Server: Socket Server Up and Serving Clients`);
+
   socket.on('new player', () => {
+
     const playerInitX = Math.floor(Math.random() * 600),
           playerInitY = Math.floor(Math.random() * 400);
+
     players.push({ id: socket.id, x: playerInitX, y: playerInitY })
-    // players.forEach((player) => {
-      io.emit('players-list', players)
+
+      io.emit('players-list', players);
+
     // console.log(`>>> Server: Socket Server's Client Pool: ${player.id}`)
-    // });
+
   });
 
   socket.on('moveClientUp', (data) => {
@@ -50,6 +54,7 @@ io.on('connection', (socket) => {
     // console.log('newPlayerPos', newPlayerPos);
     io.emit('clientNewCoords', newPlayerPos);
   });
+
 // Closes io.on('connection')
 });
 
