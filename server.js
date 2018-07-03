@@ -12,14 +12,17 @@ const logger    = require('morgan');
 app.use(express.static(path.join(__dirname, './public')));
 app.use(logger('dev'));
 
-let players = {};
+let players = [];
 
 io.on('connection', (socket) => {
   console.log(`>>> Server: Socket Server Up and Serving Clients`);
   socket.on('new player', () => {
-    players[socket.id]
+    players.push({id: socket.id})
+    // players.forEach((player) => {
+      io.emit('players-list', players)
+    // console.log(`>>> Server: Socket Server's Client Pool: ${player.id}`)
+    // });
   });
-  console.log(`>>> Server: Socket Server's Client Pool: ${players}`)
 });
 
 server.listen(PORT, () => {

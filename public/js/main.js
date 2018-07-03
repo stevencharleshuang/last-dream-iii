@@ -5,7 +5,6 @@ $( document ).ready(() => {
 
    // Crafty Init Game Board
   Crafty.init(888,500, document.getElementById('game'));
-  Crafty.enterScene('landing_screen');
   // Crafty Define Landing_Screen
   Crafty.defineScene('landing_screen', () => {
     Crafty.sprite('../images/splash.png', { background:[ 0, 0, 888, 500 ] });
@@ -48,6 +47,8 @@ $( document ).ready(() => {
       }
     });
   });
+  // Crafty Enter Landing Screen
+  Crafty.enterScene('landing_screen');
     // TESTING ONLY - TBR
     // Landing Button
   $('#landing-btn').on('click', () => {

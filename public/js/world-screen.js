@@ -10,10 +10,17 @@ $( document ).ready(() => {
   socket.on('connect', () => {
     console.log(`<<< Client: Socket Connection Open! Client Id: ${socket.id}`);
   });
+  socket.on('players-list', (players) => {
+    console.log(players)
+    $('.players-list').html('');
+    players.forEach((player) => {
+      $('.players-list').append(`<li>${player.id}</li>`);
+    })
+  })
   socket.emit('new player');
   });
   socket.on('disconnect', () => {
-    console.log(`<<< Client ${socket.id} has disconnected`)
+    console.log(`<<< Client ${socket.id} has disconnected8`)
   });
 
 // Closes jQuery
