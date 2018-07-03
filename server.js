@@ -27,12 +27,29 @@ io.on('connection', (socket) => {
   });
 
   socket.on('moveClientUp', (data) => {
-    console.log('clientMoveUp data:', data);
-    let newPlayerY = data.y - 25;
-    console.log('newPlayerY', newPlayerY);
-    io.emit('clientMoveUp', newPlayerY);
-  })
-
+    // console.log('clientNewCoords data:', data);
+    let newPlayerPos = { x: data.x, y: data.y - 25};
+    // console.log('newPlayerPos', newPlayerPos);
+    io.emit('clientNewCoords', newPlayerPos);
+  });
+  socket.on('moveClientLeft', (data) => {
+    // console.log('clientNewCoords data:', data);
+    let newPlayerPos = { x: data.x - 25, y: data.y};
+    // console.log('newPlayerPos', newPlayerPos);
+    io.emit('clientNewCoords', newPlayerPos);
+  });
+  socket.on('moveClientDown', (data) => {
+    // console.log('clientNewCoords data:', data);
+    let newPlayerPos = { x: data.x, y: data.y + 25};
+    // console.log('newPlayerPos', newPlayerPos);
+    io.emit('clientNewCoords', newPlayerPos);
+  });
+  socket.on('moveClientRight', (data) => {
+    // console.log('clientNewCoords data:', data);
+    let newPlayerPos =  { x: data.x + 25, y: data.y};
+    // console.log('newPlayerPos', newPlayerPos);
+    io.emit('clientNewCoords', newPlayerPos);
+  });
 // Closes io.on('connection')
 });
 

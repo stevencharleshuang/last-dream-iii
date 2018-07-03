@@ -26,29 +26,30 @@ $( document ).ready(() => {
       // Client Controls
       if (!!clientPlayer) {
         clientPlayer.bind('KeyDown', function(e) {
-          let playerPosY = clientPlayer._y;
+          let playerPos = { x: clientPlayer._x, y: clientPlayer._y };
           if (e.key == Crafty.keys.W) { // W = Up
-            console.log('Player hit W');
-            socket.emit('moveClientUp', { id: id, x: x, y: playerPosY});
+            // console.log('Player hit W');
+            socket.emit('moveClientUp', { id: id, x: playerPos.x, y: playerPos.y });
           }
           else if (e.key == Crafty.keys.A) { // A = Left
-            console.log('Player hit A');
-            socket.emit('moveClientLeft', id);
+            // console.log('Player hit A');
+            socket.emit('moveClientLeft', { id: id, x: playerPos.x, y: playerPos.y });
           }
           else if (e.key == Crafty.keys.S) { // S = Down
-            console.log('Player hit S');
-            socket.emit('moveClientDown', id);
+            // console.log('Player hit S');
+            socket.emit('moveClientDown', { id: id, x: playerPos.x, y: playerPos.y });
           }
           else if (e.key == Crafty.keys.D) { // D = Right
-            console.log('Player hit D');
-            socket.emit('moveClientRight', id);
+            // console.log('Player hit D');
+            socket.emit('moveClientRight', { id: id, x: playerPos.x, y: playerPos.y });
           }
         });
       };
     };
 
-    function moveClientPlayer (direction) {
-      clientPlayer.y = direction;
+    function moveClientPlayer (newPos) {
+      clientPlayer.x = newPos.x;
+      clientPlayer.y = newPos.y;
     }
 
     // // TESTING ONLY - TBR - Player Position Loggging
@@ -70,8 +71,8 @@ $( document ).ready(() => {
       });
     });
 
-    socket.on('clientMoveUp', (data) => {
-      console.log('clientMoveUp', data);
+    socket.on('clientNewCoords', (data) => {
+      console.log('clientNewCoords', data);
       moveClientPlayer(data);
     })
     socket.emit('new player');
