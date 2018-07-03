@@ -8,3 +8,7 @@ body {
 #game {
   margin: 0 auto;
 }
+
+.players-list {
+  list-style: none;
+}

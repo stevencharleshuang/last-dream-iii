@@ -1,5 +1,8 @@
+const socket = io();
+let clientPlayer;
+
 $( document ).ready(() => {
-  console.log('main.js: jQuery ready!');
+  console.log('world-screen.js: jQuery ready!');
 
   Crafty.defineScene("world_screen", () => {
     console.log('world_screen: ready!')
@@ -7,18 +10,34 @@ $( document ).ready(() => {
     const bg = Crafty.e('2D, DOM, background')
     Crafty.sprite('../images/locke_map.png', { locke: [ 0, 0, 20, 30 ] });
 
-  socket.on('connect', () => {
-    console.log(`<<< Client: Socket Connection Open! Client Id: ${socket.id}`);
+    function initClientPlayer() {
+      console.log('initClientPlayer() called')
+      clientPlayer = Crafty.e('2D, DOM, Color, locke, Collision, Motion')
+        .color("blue")
+        .collision()
+        .onHit('Battle', function() {
+          console.log('%%%%%%%%%%%%%% Hit detected')
+          // this.stop();
+          Crafty.enterScene('battle_screen');
+      });
+    }
+
+    socket.on('connect', () => {
+      console.log(`<<< Client: Socket Connection Open! Client Id: ${socket.id}`);
+    });
+    socket.on('players-list', (players) => {
+      console.log(players)
+      $('.players-list').html('');
+      players.forEach((player) => {
+        $('.players-list').append(`<li>${player.id}</li>`);
+        initClientPlayer();
+      })
+    });
+    socket.emit('new player');
+
+  // Closes Crafty Define World Screen
   });
-  socket.on('players-list', (players) => {
-    console.log(players)
-    $('.players-list').html('');
-    players.forEach((player) => {
-      $('.players-list').append(`<li>${player.id}</li>`);
-    })
-  })
-  socket.emit('new player');
-  });
+
   socket.on('disconnect', () => {
     console.log(`<<< Client ${socket.id} has disconnected8`)
   });

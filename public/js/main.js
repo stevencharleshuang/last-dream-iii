@@ -1,4 +1,4 @@
-const socket = io();
+
 
 $( document ).ready(() => {
   console.log('main.js: jQuery ready!');
