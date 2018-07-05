@@ -1,5 +1,6 @@
 const socket = io();
 let clientPlayer;
+let clientPlayerID;
 
 $( document ).ready(() => {
   console.log('world-screen.js: jQuery ready!');
@@ -16,7 +17,7 @@ $( document ).ready(() => {
         let gilgamesh = Crafty.e('2D, DOM, Color, Collision, Battle')
                           .attr({ x: 400, y: 400, w: 25, h: 25 })
                           .color('purple')
-                          .collision()
+                          .collision();
       };
     };
 
@@ -29,15 +30,16 @@ $( document ).ready(() => {
         .color("blue")
         .collision()
         .onHit('Battle', function() {
-          console.log('%%%%%%%%%%%%%% Hit detected')
+          console.log('%%%%%%%%%%%%%% Hit detected');
           // this.stop();
           Crafty.enterScene('battle_screen');
-      });
+        });
 
       // Client Controls
       if (!!clientPlayer) {
         clientPlayer.bind('KeyDown', function(e) {
           let playerPos = { x: clientPlayer._x, y: clientPlayer._y };
+
           if (e.key == Crafty.keys.W) { // W = Up
             // console.log('Player hit W');
             socket.emit('moveClientUp', { id: id, x: playerPos.x, y: playerPos.y });
@@ -70,23 +72,28 @@ $( document ).ready(() => {
     //     player x: ${clientPlayer._x}, player y: ${clientPlayer._y}`);
     // };
 
-    socket.on('connect', () => {
+    socket.on('message', (socket) => {
       console.log(`<<< Client: Socket Connection Open! Client Id: ${socket.id}`);
     });
 
     socket.on('players-list', (players) => {
-      console.log(players)
+      console.log('players-list', players)
       $('.players-list').html('');
       players.forEach((player) => {
-        $('.players-list').append(`<li>${player.id}</li>`);
-        initClientPlayer(player.id, player.x, player.y);
+        clientPlayerID = player.id;
+        $('.players-list').append(`<li>${clientPlayerID}</li>`);
+        $('#client-socket').html(socket.id)
+        initClientPlayer(clientPlayerID, player.x, player.y);
       });
     });
 
     socket.on('clientNewCoords', (data) => {
       // console.log('clientNewCoords', data);
-      moveClientPlayer(data);
+      if (clientPlayerID === data.id) {
+        moveClientPlayer(data);
+      }
     })
+
     socket.emit('new player');
 
   // Closes Crafty Define World Screen
