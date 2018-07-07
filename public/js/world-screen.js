@@ -38,8 +38,7 @@ $( document ).ready(() => {
       // Client Controls
       if (!!clientPlayer) {
         clientPlayer.bind('KeyDown', function(e) {
-          let playerPos = { x: clientPlayer._x, y: clientPlayer._y };
-
+          let playerPos = { x: clientPlayer._x, y: clientPlayer._y };=
           if (e.key == Crafty.keys.W) { // W = Up
             // console.log('Player hit W');
             socket.emit('moveClientUp', { id: id, x: playerPos.x, y: playerPos.y });

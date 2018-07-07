@@ -29,8 +29,9 @@ io.on('connection', (socket) => {
     // console.log(`>>> Server: Socket Server's Client Pool: ${player.id}`);
   });
 
+  // Update Client Controls
   socket.on('moveClientUp', (data) => {
-    console.log('clientNewCoords data:', data);
+    // console.log('clientNewCoords data:', data);
     let newPlayerPos = { id: data.id, x: data.x, y: data.y - 25};
     // console.log('newPlayerPos', newPlayerPos);
     io.sockets.emit('clientNewCoords', newPlayerPos);
@@ -52,6 +53,10 @@ io.on('connection', (socket) => {
     let newPlayerPos =  { id: data.id, x: data.x + 25, y: data.y};
     // console.log('newPlayerPos', newPlayerPos);
     io.sockets.emit('clientNewCoords', newPlayerPos);
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`>>> Server: Client Disconnected`)
   });
 
 // Closes io.on('connection')

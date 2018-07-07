@@ -4,7 +4,8 @@
 $( document ).ready(function() {
   // Import Tests
   console.log('battle_screen.js: jQuery ready!');
-  console.log('battle_screen loaded')
+  console.log('battle_screen loaded');
+  console.log('battle screen socket operational. socket id: ', socket.id);
   // console.log('battle_screen.js WS:', websocket);
   // Paths
   Crafty.paths({
