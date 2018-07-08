@@ -1,6 +1,8 @@
 const socket = io();
 let clientPlayer;
 let clientPlayerID;
+let opponentPlayer;
+let opponentPlayerID;
 
 $( document ).ready(() => {
   console.log('world-screen.js: jQuery ready!');
@@ -71,7 +73,7 @@ $( document ).ready(() => {
     // Opponent Player
     function initOpponentPlayer(id, x, y) {
       console.log('initOpponentPlayer() Fired id: ', id);
-      clientPlayer = Crafty.e('2D, DOM, Color, locke, Collision, Motion')
+      opponentPlayer = Crafty.e('2D, DOM, Color, locke, Collision, Motion')
         .attr({ id: id, x: x, y: y })
         .color("red")
         .collision()
@@ -85,6 +87,8 @@ $( document ).ready(() => {
     // Update Opponent Player Coords
     function moveOpponentPlayer(newPos) {
       console.log('moveOpponentPlayer() Fired');
+      opponentPlayer.x = newPos.x;
+      opponentPlayer.y = newPos.y;
     }
 
     // // TESTING ONLY - TBR - Player Position Loggging
@@ -107,14 +111,15 @@ $( document ).ready(() => {
           initClientPlayer(player.id, player.x, player.y);
           clientPlayerID = player.id;
         } else {
-          initOpponentPlayer(player.id, player.x, player.y)
+          initOpponentPlayer(player.id, player.x, player.y);
+          opponentPlayerID = player.id;
         }
       });
     });
 
     socket.on('clientNewCoords', (data) => {
       // console.log('clientNewCoords', data);
-      if (clientPlayerID === data.id) {
+      if (data.id === socket.id) {
         moveClientPlayer(data);
       } else {
         moveOpponentPlayer(data);
