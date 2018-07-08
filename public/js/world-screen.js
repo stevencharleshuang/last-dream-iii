@@ -22,11 +22,12 @@ $( document ).ready(() => {
     };
 
     unleashTheBeasts('gilgamesh');
+
     // Init Client Avatar At Randomized Location
     function initClientPlayer(id, x, y) {
-      console.log('initClientPlayer() fired');
+      console.log('initClientPlayer() fired, id: ', id);
       clientPlayer = Crafty.e('2D, DOM, Color, locke, Collision, Motion')
-        .attr({ x: x, y: y })
+        .attr({ id: id, x: x, y: y })
         .color("blue")
         .collision()
         .onHit('Battle', function() {
@@ -36,9 +37,10 @@ $( document ).ready(() => {
         });
 
       // Client Controls
-      if (!!clientPlayer) {
+      if (socket.id === clientPlayer.id) {
+        console.log(clientPlayer);
         clientPlayer.bind('KeyDown', function(e) {
-          let playerPos = { x: clientPlayer._x, y: clientPlayer._y };=
+          let playerPos = { x: clientPlayer._x, y: clientPlayer._y };
           if (e.key == Crafty.keys.W) { // W = Up
             // console.log('Player hit W');
             socket.emit('moveClientUp', { id: id, x: playerPos.x, y: playerPos.y });
@@ -59,10 +61,30 @@ $( document ).ready(() => {
       };
     };
 
+
     // Update Client Player Coords
-    function moveClientPlayer (newPos) {
+    function moveClientPlayer(newPos) {
       clientPlayer.x = newPos.x;
       clientPlayer.y = newPos.y;
+    }
+
+    // Opponent Player
+    function initOpponentPlayer(id, x, y) {
+      console.log('initOpponentPlayer() Fired id: ', id);
+      clientPlayer = Crafty.e('2D, DOM, Color, locke, Collision, Motion')
+        .attr({ id: id, x: x, y: y })
+        .color("red")
+        .collision()
+        .onHit('Battle', function() {
+          console.log('%%%%%%%%%%%%%% Hit detected');
+          // this.stop();
+          Crafty.enterScene('battle_screen');
+        });
+    }
+
+    // Update Opponent Player Coords
+    function moveOpponentPlayer(newPos) {
+      console.log('moveOpponentPlayer() Fired');
     }
 
     // // TESTING ONLY - TBR - Player Position Loggging
@@ -79,10 +101,14 @@ $( document ).ready(() => {
       console.log('players-list', players)
       $('.players-list').html('');
       players.forEach((player) => {
-        clientPlayerID = player.id;
-        $('.players-list').append(`<li>${clientPlayerID}</li>`);
+        $('.players-list').append(`<li>${socket.id}</li>`);
         $('#client-socket').html(socket.id)
-        initClientPlayer(clientPlayerID, player.x, player.y);
+        if (player.id === socket.id) {
+          initClientPlayer(player.id, player.x, player.y);
+          clientPlayerID = player.id;
+        } else {
+          initOpponentPlayer(player.id, player.x, player.y)
+        }
       });
     });
 
@@ -90,6 +116,8 @@ $( document ).ready(() => {
       // console.log('clientNewCoords', data);
       if (clientPlayerID === data.id) {
         moveClientPlayer(data);
+      } else {
+        moveOpponentPlayer(data);
       }
     })
 
