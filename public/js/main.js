@@ -1,5 +1,3 @@
-
-
 $( document ).ready(() => {
   console.log('main.js: jQuery ready!');
 
@@ -16,14 +14,14 @@ $( document ).ready(() => {
         w: 600,
         h: 100
       })
-    .text("Last Dream III")
-    .textFont({
-      size: '90px',
-      weight: '400',
-      letterspacing: '1px',
-      family: 'Vidaloka, serif'
-    })
-    .textColor("Black");
+      .text("Last Dream III")
+      .textFont({
+        size: '90px',
+        weight: '400',
+        letterspacing: '1px',
+        family: 'Vidaloka, serif'
+      })
+      .textColor("Black");
     const play = Crafty.e('2D, DOM, Text, Keyboard')
       .attr({
         x: 10,
@@ -31,14 +29,14 @@ $( document ).ready(() => {
         w: 600,
         h: 100
       })
-    .text("Press 'e' to begin")
-    .textFont({
-      size: '20px',
-      weight: '400',
-      letterspacing: '1px',
-      family: 'Vidaloka, serif'
-    })
-    .textColor("Black");
+      .text("Press 'e' to begin")
+      .textFont({
+        size: '20px',
+        weight: '400',
+        letterspacing: '1px',
+        family: 'Vidaloka, serif'
+      })
+      .textColor("Black");
 
     play.bind('KeyDown', function(e) {
       if (e.key === Crafty.keys.E) {
@@ -46,7 +44,9 @@ $( document ).ready(() => {
         console.log('Loading World Screen');
       }
     });
+
   });
+
   // Crafty Enter Landing Screen
   Crafty.enterScene('landing_screen');
     // TESTING ONLY - TBR
@@ -67,5 +67,6 @@ $( document ).ready(() => {
     // $('#world-btn').replaceWith('<button id="fight-btn btn">Fight Screen Test Btn</button>');
     Crafty.enterScene('world_screen');
   });
+
 // Closes jQuery
 });

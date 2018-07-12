@@ -16,17 +16,26 @@ let players = [];
 io.on('connection', (socket) => {
   console.log(`>>> Server: Socket Server Up and Serving Clients`);
 
-  socket.emit('welcome', {  })
-
   socket.on('new player', () => {
+    function checkDupSock (i) {
+      return i.id === socket.id;
+    }
+    if (players.every(checkDupSock) === false) {
+      console.log('>>> Server: Client already exists: ', players.every(checkDupSock));
+    } else {
+      // console.log('>>> new player payload: ', socket);
+      const playerInitX = Math.floor(Math.random() * 600),
+            playerInitY = Math.floor(Math.random() * 400);
 
-    const playerInitX = Math.floor(Math.random() * 600),
-          playerInitY = Math.floor(Math.random() * 400);
+      players.push({ id: socket.id, x: playerInitX, y: playerInitY });
 
-    players.push({ id: socket.id, x: playerInitX, y: playerInitY });
-
-    io.emit('players-list', players);
-    // console.log(`>>> Server: Socket Server's Client Pool: ${player.id}`);
+      io.emit('players', players);
+      // console.log(`>>> Server: Socket Server's Client Pool: ${player.id}`);
+      console.log(`players arr already has client?: ${players.every(checkDupSock)}
+        socket id: ${socket.id}
+        players arr: ${players}
+      `)
+    }
   });
 
   // Update Client Controls
